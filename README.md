@@ -8,13 +8,13 @@ Lexify is a desktop application designed to help users learn and manage vocabula
 
 ## Features (Planned)
 
-\- **Vocabulary Learning**: Memorize and review words with customizable study plans.
+- **Vocabulary Learning**: Memorize and review words with customizable study plans.
 
-\- **User Accounts**: Register, log in, and synchronize learning progress.
+- **User Accounts**: Register, log in, and synchronize learning progress.
 
-\- **Predefined Libraries**: Includes common word libraries such as TOEFL, GRE, and more.
+- **Predefined Libraries**: Includes common word libraries such as TOEFL, GRE, and more. (Future support for Japanese word libraries, such as JLPT N1 - N5 is planned.)
 
-\- **Custom Libraries**: Import external word lists and export them as printable PDFs or CSVs.
+- **Custom Libraries**: Import external word lists and export them as printable PDFs or CSVs.
 
 ## Technology Stack
 - **Frontend**: PySide6 for the desktop application.
