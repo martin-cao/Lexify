@@ -14,6 +14,6 @@ class LibraryWord(db.Model):
     # Model for the library_words table
     __tablename__ = "library_words"
 
-    id = db.Column(db.Intenger, primary_key=True)
-    library_id = db.Column(db.Intenger, db.ForeignKey("libraries.id"), nullable=False)
-    word_id = db.Column(db.Intenger, db.ForeignKey("words.id"), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    library_id = db.Column(db.Integer, db.ForeignKey("libraries.id"), nullable=False)
+    word_id = db.Column(db.Integer, db.ForeignKey("words.id"), nullable=False)
