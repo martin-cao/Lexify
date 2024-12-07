@@ -33,6 +33,9 @@ Development and deployment instructions will be added as the project progresses.
 
 ---
 
+> [!WARNING]
+> As this is a course design project, please DO NOT make any pull request. If you have any suggestion with this project, please create an issue.
+
 For more information, please contact <a href="mailto:martincao119@icloud.com">martincao119@icloud.com</a>.
 
 Stay tuned for updates!
