@@ -44,6 +44,9 @@ class Ui_MainWindow(object):
         self.gridLayout_2.addLayout(self.gridLayout_login, 0, 0, 1, 1)
 
         self.stackedWidget.addWidget(self.login)
+        self.signup = QWidget()
+        self.signup.setObjectName(u"signup")
+        self.stackedWidget.addWidget(self.signup)
         self.main = QWidget()
         self.main.setObjectName(u"main")
         self.stackedWidget.addWidget(self.main)
@@ -60,6 +63,9 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
+
+        self.stackedWidget.setCurrentIndex(2)
+
 
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi

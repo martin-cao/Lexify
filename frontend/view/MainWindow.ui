@@ -23,6 +23,9 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
@@ -30,6 +33,7 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="signup"/>
       <widget class="QWidget" name="main"/>
      </widget>
     </item>

@@ -40,11 +40,11 @@ class Ui_Form(object):
 
         self.horizontalLayout.addWidget(self.label)
 
-        self.lineEdit = QLineEdit(Form)
-        self.lineEdit.setObjectName(u"lineEdit")
-        self.lineEdit.setMaximumSize(QSize(200, 16777215))
+        self.lineEdit_login_username = QLineEdit(Form)
+        self.lineEdit_login_username.setObjectName(u"lineEdit_login_username")
+        self.lineEdit_login_username.setMaximumSize(QSize(200, 16777215))
 
-        self.horizontalLayout.addWidget(self.lineEdit)
+        self.horizontalLayout.addWidget(self.lineEdit_login_username)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -59,11 +59,12 @@ class Ui_Form(object):
 
         self.horizontalLayout_2.addWidget(self.label_2)
 
-        self.lineEdit_2 = QLineEdit(Form)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
-        self.lineEdit_2.setMaximumSize(QSize(200, 16777215))
+        self.lineEdit_login_pwd = QLineEdit(Form)
+        self.lineEdit_login_pwd.setObjectName(u"lineEdit_login_pwd")
+        self.lineEdit_login_pwd.setMaximumSize(QSize(200, 16777215))
+        self.lineEdit_login_pwd.setEchoMode(QLineEdit.EchoMode.Password)
 
-        self.horizontalLayout_2.addWidget(self.lineEdit_2)
+        self.horizontalLayout_2.addWidget(self.lineEdit_login_pwd)
 
 
         self.verticalLayout.addLayout(self.horizontalLayout_2)
