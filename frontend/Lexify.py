@@ -34,8 +34,8 @@ class MainWindow(QMainWindow):
         self.loginView_ui = Ui_loginView()
         self.loginView_ui.setupUi(self.loginView)
 
-        self.ui.gridLayout_main_login.addWidget(self.loginView)
-        self.ui.stackedWidget.setCurrentIndex(1)
+        self.ui.gridLayout_login.addWidget(self.loginView)
+        self.ui.stackedWidget.setCurrentIndex(0)
 
 if __name__ == "__main__":
 
