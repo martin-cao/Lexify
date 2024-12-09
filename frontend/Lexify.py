@@ -13,6 +13,7 @@ from config import Config
 from view.MainWindow import Ui_MainWindow
 
 from view.login import Ui_Form as Ui_loginView
+from view.signup import Ui_Form as Ui_signupView
 
 engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
 Session = sessionmaker(bind=engine)
