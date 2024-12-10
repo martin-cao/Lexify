@@ -1,4 +1,4 @@
-from .library import Library, LibraryWord
+from model.library import Library, LibraryWord
 from Lexify import session
 
 # CRUD for Library

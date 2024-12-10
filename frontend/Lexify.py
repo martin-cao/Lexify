@@ -13,10 +13,13 @@ from config import Config
 from view.MainWindow import Ui_MainWindow
 
 from view.login import Ui_Form as Ui_loginView
+from view.signup import Ui_Form as Ui_signupView
 
-engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
-Session = sessionmaker(bind=engine)
-session = Session()
+from database.database import session
+
+# engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
+# Session = sessionmaker(bind=engine)
+# session = Session()
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -34,8 +37,8 @@ class MainWindow(QMainWindow):
         self.loginView_ui = Ui_loginView()
         self.loginView_ui.setupUi(self.loginView)
 
-        self.ui.gridLayout_main_login.addWidget(self.loginView)
-        self.ui.stackedWidget.setCurrentIndex(1)
+        self.ui.gridLayout_login.addWidget(self.loginView)
+        self.ui.stackedWidget.setCurrentIndex(0)
 
 if __name__ == "__main__":
 

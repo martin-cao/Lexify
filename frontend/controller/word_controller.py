@@ -1,4 +1,4 @@
-from .word import Word
+from model.word import Word
 from Lexify import session
 
 # CRUD for Words
