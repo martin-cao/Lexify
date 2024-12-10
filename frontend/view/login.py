@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
-    QLineEdit, QPushButton, QSizePolicy, QVBoxLayout,
-    QWidget)
+    QLayout, QLineEdit, QPushButton, QSizePolicy,
+    QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -30,6 +30,12 @@ class Ui_Form(object):
         self.verticalLayout.setSpacing(20)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(20, 20, 20, 20)
+        self.label_4 = QLabel(Form)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setMaximumSize(QSize(16777215, 40))
+
+        self.verticalLayout.addWidget(self.label_4)
+
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(20)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
@@ -92,9 +98,11 @@ class Ui_Form(object):
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setSpacing(20)
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.horizontalLayout_3.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
+        self.horizontalLayout_3.setContentsMargins(80, -1, 80, -1)
         self.label_3 = QLabel(Form)
         self.label_3.setObjectName(u"label_3")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.label_3.sizePolicy().hasHeightForWidth())
@@ -107,8 +115,11 @@ class Ui_Form(object):
 
         self.pushButton_login_signup = QPushButton(Form)
         self.pushButton_login_signup.setObjectName(u"pushButton_login_signup")
-        sizePolicy.setHeightForWidth(self.pushButton_login_signup.sizePolicy().hasHeightForWidth())
-        self.pushButton_login_signup.setSizePolicy(sizePolicy)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.pushButton_login_signup.sizePolicy().hasHeightForWidth())
+        self.pushButton_login_signup.setSizePolicy(sizePolicy2)
         self.pushButton_login_signup.setMinimumSize(QSize(80, 0))
         self.pushButton_login_signup.setMaximumSize(QSize(80, 16777215))
         self.pushButton_login_signup.setFlat(True)
@@ -129,6 +140,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.label_4.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:24pt;\">Welcome to Lexify</span></p></body></html>", None))
         self.label.setText(QCoreApplication.translate("Form", u"\u7528\u6237\u540d", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"\u5bc6\u7801", None))
         self.pushButton_login_login.setText(QCoreApplication.translate("Form", u"\u767b\u5f55", None))

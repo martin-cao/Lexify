@@ -1,4 +1,4 @@
-from .user import LearningProgress
+from model.user import LearningProgress
 from Lexify import session
 
 # CRUD for LearningProgress
