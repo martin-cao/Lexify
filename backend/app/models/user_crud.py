@@ -1,5 +1,5 @@
-from app.models.user import User, UserLibraryProgress
-from app import db
+from backend.app.models.user import User, UserLibraryProgress
+from backend.app import db
 
 # CRUD for Users
 def create_user(username, password_sha256, email, description=None):

@@ -1,4 +1,4 @@
-from app import db
+from backend.app import db
 from sqlalchemy.sql import func
 
 class User(db.Model):
