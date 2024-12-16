@@ -1,6 +1,6 @@
-from flask import Blueprint, request, jsonify
-import app.models.user_crud as user
-from app import db
+from flask import Blueprint,render_template, request, jsonify
+import backend.app.models.user_crud as user
+from backend.app import db
 
 user_bp = Blueprint('user', __name__)
 
