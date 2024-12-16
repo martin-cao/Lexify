@@ -1,20 +1,21 @@
-from backend.app.models.user import User, check_password
-from backend.app import db
+from app.models.user import User, check_password, username_exists, set_password
+from app import db
 
-def register_user(user: User):
+def register_user(username, password):
     """
     注册用户
-    :param user
+    :param username
+    :param password
     :return: 操作结果
     """
     # Check whether username exists, then save the data into the database
-    username = user.username
-    password = user.password_sha256
+    # username = user.username
+    # password = user.password_sha256
 
     if not username or not password:
         return False, "用户名和密码不能为空"
 
-    if User.query.filter_by(username=username).first():
+    if username_exists(username):
         return False, "用户已存在"
 
     new_user = User(username=username, password_sha256=password)
@@ -39,9 +40,9 @@ def login_user(user: User):
     user=User.query.filter_by(username=username).first()
     if not user:
         return False, "用户名不存在"
-    if not user.check_password(password):
+    if not check_password(username, password):
         return False, "密码错误"
-    return True
+    return True, "登陆成功"
 
 def logout_user():
     """
@@ -74,7 +75,7 @@ def edit_user(user: User, new_password):
         return False, "密码错误"
 
     # 更新密码
-    user.set_password(new_password)
+    set_password(user, new_password)
     try:
         db.session.commit()
         return True, "修改成功"
