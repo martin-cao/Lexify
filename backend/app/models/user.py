@@ -1,4 +1,4 @@
-from backend.app import db
+from app import db
 from sqlalchemy.sql import func
 
 class User(db.Model):
@@ -8,7 +8,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password_sha256 = db.Column(db.String(64), nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=True)
     description = db.Column(db.Text, nullable=True)
 
 class UserLibraryProgress(db.Model):
@@ -40,11 +40,18 @@ def get_user_by_id(user_id):
 def get_user_by_username(username):
     return User.query.get(username)
 
+def username_exists(username):
+    return User.query.filter_by(username=username).first() is not None
+
 def check_password(username, password):
     user = User.query.filter_by(username=username).first()
     if not user:
         return False
     return user.password_sha256 == password
+
+def set_password(user: User, new_password):
+    user.password_sha256 = new_password
+    db.session.commit()
 
 # CRUD for UserLibraryProgress
 def create_user_library_progress(user_id, word_id, library_id, status, proficiency, last_review, next_review, review_count, ease_factor):
