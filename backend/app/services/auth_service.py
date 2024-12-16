@@ -17,6 +17,16 @@ def register_user(user: User):
     if User.query.filter_by(username=username).first():
         return False, "用户已存在"
 
+    new_user = User(username=username, password_sha256=password)
+    db.session.add(new_user)
+    try:
+        db.session.commit()
+        return True, "注册成功"
+    except Exception as e:
+        db.session.rollback()
+        return False, f"发生了一个错误：{str(e)}"
+
+
 def login_user(user: User):
     """
     用户登录
@@ -41,7 +51,7 @@ def logout_user():
     """
     return True
 
-def edit_user(user, new_password):
+def edit_user(user: User, new_password):
     """
     编辑用户信息
     :param user:
@@ -51,7 +61,7 @@ def edit_user(user, new_password):
     username = user.username
     password = user.password_sha256
 
-    if not username or not new_password:
+    if not username or not password or not new_password:
         return "用户名和密码不能为空"
 
     # 查找用户
@@ -59,8 +69,15 @@ def edit_user(user, new_password):
     if not user:
         return False, "用户不存在"
 
+    # Check if the old password is correct
+    if not check_password(username, password):
+        return False, "密码错误"
+
     # 更新密码
     user.set_password(new_password)
-    db.session.commit()
-
-    return True
+    try:
+        db.session.commit()
+        return True, "修改成功"
+    except Exception as e:
+        db.session.rollback()
+        return False, f"发生了一个错误：{str(e)}"
