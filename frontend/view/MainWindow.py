@@ -46,9 +46,23 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.login)
         self.signup = QWidget()
         self.signup.setObjectName(u"signup")
+        self.gridLayout_3 = QGridLayout(self.signup)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_signup = QGridLayout()
+        self.gridLayout_signup.setObjectName(u"gridLayout_signup")
+
+        self.gridLayout_3.addLayout(self.gridLayout_signup, 0, 0, 1, 1)
+
         self.stackedWidget.addWidget(self.signup)
         self.main = QWidget()
         self.main.setObjectName(u"main")
+        self.gridLayout_4 = QGridLayout(self.main)
+        self.gridLayout_4.setObjectName(u"gridLayout_4")
+        self.gridLayout_main = QGridLayout()
+        self.gridLayout_main.setObjectName(u"gridLayout_main")
+
+        self.gridLayout_4.addLayout(self.gridLayout_main, 0, 0, 1, 1)
+
         self.stackedWidget.addWidget(self.main)
 
         self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
@@ -64,7 +78,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

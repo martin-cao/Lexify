@@ -104,7 +104,19 @@ class Ui_Form(object):
         self.pushButton_signup_signup.setStyleSheet(u"alignment=Qt.AlignCenter")
         self.pushButton_signup_signup.setFlat(False)
 
-        self.gridLayout.addWidget(self.pushButton_signup_signup, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.pushButton_signup_signup, 0, 1, 1, 1)
+
+        self.pushButton_signup_cancel = QPushButton(Form)
+        self.pushButton_signup_cancel.setObjectName(u"pushButton_signup_cancel")
+        sizePolicy.setHeightForWidth(self.pushButton_signup_cancel.sizePolicy().hasHeightForWidth())
+        self.pushButton_signup_cancel.setSizePolicy(sizePolicy)
+        self.pushButton_signup_cancel.setMinimumSize(QSize(80, 0))
+        self.pushButton_signup_cancel.setMaximumSize(QSize(160, 16777215))
+        self.pushButton_signup_cancel.setAutoFillBackground(False)
+        self.pushButton_signup_cancel.setStyleSheet(u"alignment=Qt.AlignCenter")
+        self.pushButton_signup_cancel.setFlat(False)
+
+        self.gridLayout.addWidget(self.pushButton_signup_cancel, 0, 0, 1, 1)
 
 
         self.verticalLayout.addLayout(self.gridLayout)
@@ -124,5 +136,6 @@ class Ui_Form(object):
         self.label_2.setText(QCoreApplication.translate("Form", u"\u5bc6\u7801", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"\u786e\u8ba4\u5bc6\u7801", None))
         self.pushButton_signup_signup.setText(QCoreApplication.translate("Form", u"\u6ce8\u518c", None))
+        self.pushButton_signup_cancel.setText(QCoreApplication.translate("Form", u"\u53d6\u6d88", None))
     # retranslateUi
 
