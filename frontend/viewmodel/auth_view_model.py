@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QLabel, QMessageBox
+from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QLabel, QMessageBox, QMainWindow
 from hashlib import sha256
 
 import controller.auth_controller as AuthController
@@ -33,10 +33,10 @@ class LoginViewModel:
         self.show_message(success, msg, "登陆")
 
         if success:
-            self.main_window.stackedWidget.setCurrentIndex(3)
+            self.main_window.stackedWidget.setCurrentWidget(self.main_window.main_view)
 
     def handle_signup(self):
-        self.main_window.stackedWidget.setCurrentIndex(2)
+        self.main_window.stackedWidget.setCurrentWidget(self.main_window.signup_view)
 
     def show_message(self, success, message, action):
         # 根据登录或注册的结果弹出提示框
@@ -54,7 +54,7 @@ class LoginViewModel:
 
 
 class SignUpViewModel:
-    def __init__(self, view: QWidget, main_window: Ui_MainWindow):
+    def __init__(self, view: QWidget, main_window: QMainWindow):
         self.sign_up_view = view
         self.main_window = main_window
 
@@ -74,8 +74,8 @@ class SignUpViewModel:
         password_check = self.lineEdit_password_check.text()
 
         # Encode the inputed password
-        password_sha256 = sha256(password.encode).hexdigest()
-        password_check_sha256 = sha256(password_check.encode).hexdigest()
+        password_sha256 = sha256(password.encode()).hexdigest()
+        password_check_sha256 = sha256(password_check.encode()).hexdigest()
 
         if password_sha256 != password_check_sha256:
             # 弹出密码不一致的提示框
@@ -93,10 +93,10 @@ class SignUpViewModel:
         self.show_message(success, msg, "注册")
 
         if success:
-            self.main_window.stackedWidget.setCurrentIndex(3)
+            self.main_window.stackedWidget.setCurrentWidget(self.main_window.main_view)
 
     def handle_cancel(self):
-        self.main_window.stackedWidget.setCurrentIndex(0)
+        self.main_window.stackedWidget.setCurrentWidget(self.main_window.login_view)
 
     def show_message(self, success, message, action):
         # 根据注册结果弹出提示框
