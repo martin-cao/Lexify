@@ -21,6 +21,8 @@ class LoginViewModel:
         # Connect buttons with slot functions
         self.button_login.clicked.connect(self.handle_login)
         self.button_signup.clicked.connect(self.handle_signup)
+        self.lineEdit_username.returnPressed.connect(self.focus_password)
+        self.lineEdit_password.returnPressed.connect(self.handle_login)
 
     def handle_login(self):
         username = self.lineEdit_username.text()
@@ -53,6 +55,9 @@ class LoginViewModel:
         if button == QMessageBox.Ok:
             pass  # 这里不需要做额外的处理，页面已经在 handle_login 中切换
 
+    def focus_password(self):
+        self.lineEdit_password.setFocus()
+
 
 class SignUpViewModel:
     def __init__(self, view: QWidget, main_window: QMainWindow):
@@ -69,6 +74,9 @@ class SignUpViewModel:
         # Connect button with slot function
         self.button_signup.clicked.connect(self.handle_signup)
         self.button_cancel.clicked.connect(self.handle_cancel)
+        self.lineEdit_username.returnPressed.connect(self.focus_password)
+        self.lineEdit_password.returnPressed.connect(self.focus_password_check)
+        self.lineEdit_password_check.returnPressed.connect(self.handle_signup)
 
     def handle_signup(self):
         username = self.lineEdit_username.text()
@@ -113,3 +121,9 @@ class SignUpViewModel:
         button = msg.exec()
         if button == QMessageBox.Ok:
             pass
+
+    def focus_password(self):
+        self.lineEdit_password.setFocus()
+
+    def focus_password_check(self):
+        self.lineEdit_password_check.setFocus()
