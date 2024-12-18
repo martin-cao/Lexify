@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QLabel, QMessageBox, QMainWindow
+from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QLabel, QMessageBox, QMainWindow, QStackedWidget
 from hashlib import sha256
 
 import controller.auth_controller as AuthController
@@ -8,9 +8,10 @@ from view.signup import Ui_Form as Ui_Signup
 
 
 class LoginViewModel:
-    def __init__(self, view: QWidget, main_window: Ui_MainWindow):
+    def __init__(self, view: QWidget, main_window: QMainWindow):
         self.login_view = view
         self.main_window = main_window
+        self.stackedWidget = main_window.findChild(QStackedWidget, "stackedWidget")
 
         self.lineEdit_username = view.findChild(QLineEdit, "lineEdit_login_username")
         self.lineEdit_password = view.findChild(QLineEdit, "lineEdit_login_pwd")
@@ -33,10 +34,10 @@ class LoginViewModel:
         self.show_message(success, msg, "登陆")
 
         if success:
-            self.main_window.stackedWidget.setCurrentWidget(self.main_window.main_view)
+            self.stackedWidget.setCurrentIndex(2)
 
     def handle_signup(self):
-        self.main_window.stackedWidget.setCurrentWidget(self.main_window.signup_view)
+        self.stackedWidget.setCurrentIndex(1)
 
     def show_message(self, success, message, action):
         # 根据登录或注册的结果弹出提示框
@@ -57,6 +58,7 @@ class SignUpViewModel:
     def __init__(self, view: QWidget, main_window: QMainWindow):
         self.sign_up_view = view
         self.main_window = main_window
+        self.stackedWidget = main_window.findChild(QStackedWidget, "stackedWidget")
 
         self.lineEdit_username = view.findChild(QLineEdit, "lineEdit_signup_username")
         self.lineEdit_password = view.findChild(QLineEdit, "lineEdit_signup_pwd")
@@ -93,10 +95,10 @@ class SignUpViewModel:
         self.show_message(success, msg, "注册")
 
         if success:
-            self.main_window.stackedWidget.setCurrentWidget(self.main_window.main_view)
+            self.stackedWidget.setCurrentIndex(2)
 
     def handle_cancel(self):
-        self.main_window.stackedWidget.setCurrentWidget(self.main_window.login_view)
+        self.stackedWidget.setCurrentIndex(0)
 
     def show_message(self, success, message, action):
         # 根据注册结果弹出提示框

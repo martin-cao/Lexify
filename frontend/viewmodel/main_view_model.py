@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QStackedWidget, QMainWindow
+from PySide6.QtWidgets import QWidget, QStackedWidget, QMainWindow, QGridLayout
 from view.login import Ui_Form as Ui_Login
 from view.signup import Ui_Form as Ui_Signup
 from view.MainWindow import Ui_MainWindow
@@ -11,7 +11,12 @@ class MainViewModel:
         self.main_window = main_window
 
         # 获取 stackedWidget 用来切换视图
-        self.stacked_widget = main_window.ui.stackedWidget
+        self.stackedWidget = main_window.findChild(QStackedWidget, "stackedWidget")
+
+        # 获取预定义的页面
+        self.gridLayout_login = self.main_window.findChild(QGridLayout, "gridLayout_login")
+        self.gridLayout_signup = self.main_window.findChild(QGridLayout, "gridLayout_signup")
+        self.gridLayout_main = self.main_window.findChild(QGridLayout, "gridLayout_main")
 
         # 设置登录和注册视图
         self.login_view = QWidget()
@@ -28,20 +33,20 @@ class MainViewModel:
         self.login_view_model = LoginViewModel(self.login_view, main_window)
         self.signup_view_model = SignUpViewModel(self.signup_view, main_window)
 
-        # 将登录视图和注册视图添加到 stackedWidget 中
-        self.stacked_widget.addWidget(self.login_view)
-        self.stacked_widget.addWidget(self.signup_view)
+        # 将视图添加到预定义的页面中
+        self.gridLayout_login.addWidget(self.login_view)
+        self.gridLayout_signup.addWidget(self.signup_view)
 
         # 设置默认显示登录视图
-        self.stacked_widget.setCurrentWidget(self.login_view)
+        self.stackedWidget.setCurrentIndex(0)
 
         # 连接按钮：切换到注册界面
-        self.login_view_model.button_signup.clicked.connect(self.show_signup_view)
+        # self.login_view_model.button_signup.clicked.connect(self.show_signup_view)
 
     def show_signup_view(self):
         """切换到注册页面"""
-        self.stacked_widget.setCurrentWidget(self.signup_view)
+        self.stackedWidget.setCurrentWidget(self.signup_view)
 
     def show_login_view(self):
         """切换到登录页面"""
-        self.stacked_widget.setCurrentWidget(self.login_view)
+        self.stackedWidget.setCurrentWidget(self.login_view)
