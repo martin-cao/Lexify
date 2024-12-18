@@ -5,11 +5,23 @@ from PySide6.QtCore import Qt, QDate, QFile
 from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
 from PySide6.QtUiTools import QUiLoader
 
+from config import Config
+from database.database import DatabaseConnection
+
+from view.MainWindow import Ui_MainWindow
+from viewmodel.main_view_model import MainViewModel
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, db_session):
         super(MainWindow, self).__init__()
 
+        # Initialize SQLAlchemy session
+        self.session = db_session
+
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        self.setWindowTitle("Lexify")
 
 if __name__ == "__main__":
 
@@ -20,8 +32,12 @@ if __name__ == "__main__":
     # elif sys.platform == "win32": # Windows
     #     app.setStyle("windowsvista")
 
-    # db_connection = DatabaseConnection()
+    db_connection = DatabaseConnection()
+    session = db_connection.get_session()
 
-    window = MainWindow()
+    window = MainWindow(session)
+
+    main_window_view_model = MainViewModel(window)
+
     window.show()
     app.exec()
