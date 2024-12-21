@@ -31,6 +31,18 @@ class LoginViewModel:
         # Encode the inputed password
         password_sha256 = sha256(password.encode()).hexdigest()
 
+        # TODO For debug use
+        if username == "dev" and password == "111":
+            msg = QMessageBox(self.login_view)
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("登陆成功")
+            msg.setInformativeText("For debug use only")
+            msg.setWindowTitle("Don't be evil")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec()
+            self.stackedWidget.setCurrentIndex(2)
+            return
+
         success, msg = AuthController.login(username, password_sha256)
 
         self.show_message(success, msg, "登陆")

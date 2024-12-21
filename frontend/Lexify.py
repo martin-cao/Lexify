@@ -2,8 +2,9 @@ import sys
 import time
 
 from PySide6.QtCore import Qt, QDate, QFile
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QPushButton
+from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtUiTools import QUiLoader
+from PySide6.QtGui import QPalette
 
 from config import Config
 from database.database import DatabaseConnection
@@ -26,6 +27,11 @@ class MainWindow(QMainWindow):
 if __name__ == "__main__":
 
     app = QApplication([])
+
+    # with open("style.qss", "r", encoding="utf-8") as f:
+    #     qss = f.read()
+    #
+    # app.setStyleSheet(qss)
 
     # if sys.platform == "darwin": # macOS
     #     app.setStyle("macintosh")
