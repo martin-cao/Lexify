@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="pics">
+    <file>assets/background.jpg</file>
+    <file>assets/profile_pic.png</file>
+  </qresource>
+</RCC>

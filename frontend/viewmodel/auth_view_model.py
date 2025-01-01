@@ -31,6 +31,19 @@ class LoginViewModel:
         # Encode the inputed password
         password_sha256 = sha256(password.encode()).hexdigest()
 
+        # TODO For debug use
+        if username == "dev" and password == "111":
+            msg = QMessageBox(self.login_view)
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("登陆成功")
+            msg.setInformativeText("For debug use only")
+            msg.setWindowTitle("Don't be evil")
+            msg.setStyleSheet("font-size: 14px;")
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.exec()
+            self.stackedWidget.setCurrentIndex(2)
+            return
+
         success, msg = AuthController.login(username, password_sha256)
 
         self.show_message(success, msg, "登陆")
@@ -49,6 +62,7 @@ class LoginViewModel:
         msg.setInformativeText(message)
         msg.setWindowTitle(f"{action} 结果")
         msg.setStandardButtons(QMessageBox.Ok)
+        msg.setStyleSheet("font-size: 14px;")
 
         # 如果点击Done按钮，切换页面
         button = msg.exec()
@@ -94,6 +108,7 @@ class SignUpViewModel:
             msg.setText("密码不一致")
             msg.setInformativeText("请确保两次输入的密码相同")
             msg.setWindowTitle("注册失败")
+            msg.setStyleSheet("font-size: 14px;")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec()
             return
@@ -116,6 +131,7 @@ class SignUpViewModel:
         msg.setInformativeText(message)
         msg.setWindowTitle(f"{action} 结果")
         msg.setStandardButtons(QMessageBox.Ok)
+        msg.setStyleSheet("font-size: 14px;")
 
         # 如果点击Done按钮，切换页面
         button = msg.exec()

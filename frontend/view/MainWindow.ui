@@ -13,6 +13,221 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/* 全局基础设置 */
+
+QMainWindow {
+    background-image: url(:/pics/assets/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+QWidget {
+    color: #212121;
+    font-family: &quot;Roboto&quot;, sans-serif;
+}
+
+/* 提示文本和不可用状态 */
+QWidget:disabled {
+    color: #9E9E9E;
+}
+
+/* 按钮 - 扁平、圆角、强调主色、悬浮变色 */
+QPushButton {
+    background: rgba(98, 0, 238, 0.7); /* 设置为 70% 不透明 */
+    color: #FFFFFF;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 500;
+}
+QPushButton:hover {
+    background: rgba(55, 0, 179, 0.7); /* 加深主色，保持 70% 不透明 */
+}
+QPushButton:pressed {
+    background: rgba(49, 27, 146, 0.7); /* 更深一层，保持 70% 不透明 */
+}
+QPushButton:disabled {
+    background: rgba(189, 189, 189, 0.7); /* 禁用状态，保持 70% 不透明 */
+    color: rgba(224, 224, 224, 0.7);
+}
+
+/* 次级强调色按钮（不透明度设置同样适用） */
+QPushButton.secondary {
+    background: rgba(3, 218, 198, 0.7);
+    color: #000000;
+}
+QPushButton.secondary:hover {
+    background: rgba(1, 179, 165, 0.7);
+}
+QPushButton.secondary:pressed {
+    background: rgba(1, 140, 132, 0.7);
+}
+
+/* 次级强调色按钮（可自行使用，比如在特定功能按钮上） */
+QPushButton.secondary {
+    background: #03DAC6;
+    color: #000000;
+}
+QPushButton.secondary:hover {
+    background: #01B3A5;
+}
+QPushButton.secondary:pressed {
+    background: #018C84;
+}
+
+/* 输入框、下拉框 - 简洁底线 */
+QLineEdit, QComboBox {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #9E9E9E;
+    padding: 4px;
+    selection-background-color: #6200EE;
+    selection-color: #FFFFFF;
+    color: #FFFFFF;
+}
+QLineEdit:focus, QComboBox:focus {
+    border-bottom: 2px solid #6200EE;
+}
+
+/* 下拉列表的弹出菜单 */
+QComboBox QAbstractItemView {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    selection-background-color: #6200EE;
+    selection-color: #FFFFFF;
+}
+
+/* 工具栏和菜单栏 */
+QToolBar {
+    background: #F5F5F5;
+    border: none;
+    spacing: 8px;
+}
+QMenuBar {
+    background: #F5F5F5;
+    border-bottom: 1px solid #E0E0E0;
+}
+QMenuBar::item {
+    padding: 8px 12px;
+    background: transparent;
+}
+QMenuBar::item:selected {
+    background: #E0E0E0;
+    color: #000000;
+}
+QMenu {
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+}
+QMenu::item {
+    padding: 8px 16px;
+}
+QMenu::item:selected {
+    background: #6200EE;
+    color: #FFFFFF;
+}
+
+/* 标签（Tab）控件 */
+QTabWidget::pane {
+    border: none;
+}
+QTabBar::tab {
+    background: transparent;
+    padding: 8px 16px;
+    margin: 0 4px;
+    border-bottom: 2px solid transparent;
+    color: #FFFFFF;
+}
+QTabBar::tab:selected {
+    border-bottom: 2px solid #6200EE;
+    font-weight: 500;
+    color: #6200EE;
+}
+QTabBar::tab:hover {
+    background: #E0E0E0;
+}
+
+/* 滚动条 - 扁平、细条样式 */
+QScrollBar:horizontal {
+    background: #F5F5F5;
+    height: 8px;
+    margin: 0 16px;
+    border-radius: 4px;
+}
+QScrollBar::handle:horizontal {
+    background: #9E9E9E;
+    border-radius: 4px;
+}
+QScrollBar:vertical {
+    background: #F5F5F5;
+    width: 8px;
+    margin: 16px 0;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical {
+    background: #9E9E9E;
+    border-radius: 4px;
+}
+
+/* 去掉 QScrollBar 的上下控制按钮 */
+QScrollBar::sub-line, QScrollBar::add-line {
+    height: 0px; /* 垂直滚动条上下按钮的高度设为 0 */
+    width: 0px;  /* 水平滚动条左右按钮的宽度设为 0 */
+    background: none;
+    border: none;
+}
+
+/* 防止上下控制按钮留下空隙 */
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
+    margin: 0;
+}
+
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal {
+    margin: 0;
+}
+
+/* 标签文本 */
+QLabel {
+    color: #FFFFFF;
+}
+
+/* 提示框（ToolTip） */
+QToolTip {
+    background: #212121;
+    color: #FFFFFF;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* 列表和树视图 */
+QListView, QTreeView {
+    border: none;
+    selection-background-color: #E0E0E0;
+}
+QListView::item:hover, QTreeView::item:hover {
+    background: #E0E0E0;
+}
+QListView::item:selected, QTreeView::item:selected {
+    background: #6200EE;
+    color: #FFFFFF;
+}
+
+/* 进度条 */
+QProgressBar {
+    text-align: center;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    background: #F5F5F5;
+}
+QProgressBar::chunk {
+    background: #6200EE;
+    border-radius: 4px;
+}
+
+</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
@@ -34,14 +249,14 @@
        </layout>
       </widget>
       <widget class="QWidget" name="signup">
-      <layout class="QGridLayout" name="gridLayout_3">
+       <layout class="QGridLayout" name="gridLayout_3">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_signup"/>
         </item>
        </layout>
       </widget>
       <widget class="QWidget" name="main">
-   <layout class="QGridLayout" name="gridLayout_4">
+       <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_main"/>
         </item>
@@ -57,12 +272,14 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>37</height>
+     <height>33</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../assets.qrc"/>
+ </resources>
  <connections/>
 </ui>
