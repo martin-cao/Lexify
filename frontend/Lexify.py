@@ -28,10 +28,6 @@ if __name__ == "__main__":
 
     app = QApplication([])
 
-    # with open("style.qss", "r", encoding="utf-8") as f:
-    #     qss = f.read()
-    #
-    # app.setStyleSheet(qss)
 
     # if sys.platform == "darwin": # macOS
     #     app.setStyle("macintosh")

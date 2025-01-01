@@ -15,11 +15,17 @@
   </property>
   <property name="styleSheet">
    <string notr="true">/* 全局基础设置 */
+
+QMainWindow {
+    background-image: url(:/pics/assets/background.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
 QWidget {
-    background: #FFFFFF;
     color: #212121;
     font-family: &quot;Roboto&quot;, sans-serif;
-    font-size: 14px;
 }
 
 /* 提示文本和不可用状态 */
@@ -79,6 +85,7 @@ QLineEdit, QComboBox {
     padding: 4px;
     selection-background-color: #6200EE;
     selection-color: #FFFFFF;
+    color: #FFFFFF;
 }
 QLineEdit:focus, QComboBox:focus {
     border-bottom: 2px solid #6200EE;
@@ -131,7 +138,7 @@ QTabBar::tab {
     padding: 8px 16px;
     margin: 0 4px;
     border-bottom: 2px solid transparent;
-    color: #212121;
+    color: #FFFFFF;
 }
 QTabBar::tab:selected {
     border-bottom: 2px solid #6200EE;
@@ -164,9 +171,26 @@ QScrollBar::handle:vertical {
     border-radius: 4px;
 }
 
+/* 去掉 QScrollBar 的上下控制按钮 */
+QScrollBar::sub-line, QScrollBar::add-line {
+    height: 0px; /* 垂直滚动条上下按钮的高度设为 0 */
+    width: 0px;  /* 水平滚动条左右按钮的宽度设为 0 */
+    background: none;
+    border: none;
+}
+
+/* 防止上下控制按钮留下空隙 */
+QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {
+    margin: 0;
+}
+
+QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal {
+    margin: 0;
+}
+
 /* 标签文本 */
 QLabel {
-    color: #212121;
+    color: #FFFFFF;
 }
 
 /* 提示框（ToolTip） */
@@ -202,8 +226,7 @@ QProgressBar::chunk {
     border-radius: 4px;
 }
 
----
-给PushButton 加个属性 不透明度为70</string>
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -249,12 +272,14 @@ QProgressBar::chunk {
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>34</height>
+     <height>33</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="../assets.qrc"/>
+ </resources>
  <connections/>
 </ui>

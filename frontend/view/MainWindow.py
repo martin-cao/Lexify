@@ -17,6 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QMainWindow, QMenuBar,
     QSizePolicy, QStackedWidget, QStatusBar, QWidget)
+import assets_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -24,11 +25,17 @@ class Ui_MainWindow(object):
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(800, 600)
         MainWindow.setStyleSheet(u"/* \u5168\u5c40\u57fa\u7840\u8bbe\u7f6e */\n"
+"\n"
+"QMainWindow {\n"
+"    background-image: url(:/pics/assets/background.jpg);\n"
+"    background-repeat: no-repeat;\n"
+"    background-position: center;\n"
+"    background-attachment: fixed;\n"
+"}\n"
+"\n"
 "QWidget {\n"
-"    background: #FFFFFF;\n"
 "    color: #212121;\n"
 "    font-family: \"Roboto\", sans-serif;\n"
-"    font-size: 14px;\n"
 "}\n"
 "\n"
 "/* \u63d0\u793a\u6587\u672c\u548c\u4e0d\u53ef\u7528\u72b6\u6001 */\n"
@@ -49,11 +56,11 @@ class Ui_MainWindow(object):
 "    background: rgba(55, 0, 179, 0.7); /* \u52a0\u6df1\u4e3b\u8272\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
 "}\n"
 "QPushButton:pressed {\n"
-"    background: rgba(49, 27, 146, 0.7); /* \u66f4\u6df1\u4e00\u5c42\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"    background: r"
+                        "gba(49, 27, 146, 0.7); /* \u66f4\u6df1\u4e00\u5c42\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
 "}\n"
 "QPushButton:disabled {\n"
-"    background: rgba(1"
-                        "89, 189, 189, 0.7); /* \u7981\u7528\u72b6\u6001\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"    background: rgba(189, 189, 189, 0.7); /* \u7981\u7528\u72b6\u6001\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
 "    color: rgba(224, 224, 224, 0.7);\n"
 "}\n"
 "\n"
@@ -77,19 +84,20 @@ class Ui_MainWindow(object):
 "QPushButton.secondary:hover {\n"
 "    background: #01B3A5;\n"
 "}\n"
-"QPushButton.secondary:pressed {\n"
+"QPus"
+                        "hButton.secondary:pressed {\n"
 "    background: #018C84;\n"
 "}\n"
 "\n"
 "/* \u8f93\u5165\u6846\u3001\u4e0b\u62c9\u6846 - \u7b80\u6d01\u5e95\u7ebf */\n"
-"QL"
-                        "ineEdit, QComboBox {\n"
+"QLineEdit, QComboBox {\n"
 "    background: transparent;\n"
 "    border: none;\n"
 "    border-bottom: 2px solid #9E9E9E;\n"
 "    padding: 4px;\n"
 "    selection-background-color: #6200EE;\n"
 "    selection-color: #FFFFFF;\n"
+"    color: #FFFFFF;\n"
 "}\n"
 "QLineEdit:focus, QComboBox:focus {\n"
 "    border-bottom: 2px solid #6200EE;\n"
@@ -114,7 +122,8 @@ class Ui_MainWindow(object):
 "    border-bottom: 1px solid #E0E0E0;\n"
 "}\n"
 "QMenuBar::item {\n"
-"    padding: 8px 12px;\n"
+"    padding: "
+                        "8px 12px;\n"
 "    background: transparent;\n"
 "}\n"
 "QMenuBar::item:selected {\n"
@@ -122,8 +131,7 @@ class Ui_MainWindow(object):
 "    color: #000000;\n"
 "}\n"
 "QMenu {\n"
-"    background: #FFFFFF;"
-                        "\n"
+"    background: #FFFFFF;\n"
 "    border: 1px solid #E0E0E0;\n"
 "}\n"
 "QMenu::item {\n"
@@ -143,7 +151,7 @@ class Ui_MainWindow(object):
 "    padding: 8px 16px;\n"
 "    margin: 0 4px;\n"
 "    border-bottom: 2px solid transparent;\n"
-"    color: #212121;\n"
+"    color: #FFFFFF;\n"
 "}\n"
 "QTabBar::tab:selected {\n"
 "    border-bottom: 2px solid #6200EE;\n"
@@ -159,7 +167,8 @@ class Ui_MainWindow(object):
 "    background: #F5F5F5;\n"
 "    height: 8px;\n"
 "    margin: 0 16px;\n"
-"    border-radius: 4px;\n"
+"    border-ra"
+                        "dius: 4px;\n"
 "}\n"
 "QScrollBar::handle:horizontal {\n"
 "    background: #9E9E9E;\n"
@@ -167,8 +176,7 @@ class Ui_MainWindow(object):
 "}\n"
 "QScrollBar:vertical {\n"
 "    background: #F5F5F5;\n"
-"   "
-                        " width: 8px;\n"
+"    width: 8px;\n"
 "    margin: 16px 0;\n"
 "    border-radius: 4px;\n"
 "}\n"
@@ -177,9 +185,27 @@ class Ui_MainWindow(object):
 "    border-radius: 4px;\n"
 "}\n"
 "\n"
+"/* \u53bb\u6389 QScrollBar \u7684\u4e0a\u4e0b\u63a7\u5236\u6309\u94ae */\n"
+"QScrollBar::sub-line, QScrollBar::add-line {\n"
+"    height: 0px; /* \u5782\u76f4\u6eda\u52a8\u6761\u4e0a\u4e0b\u6309\u94ae\u7684\u9ad8\u5ea6\u8bbe\u4e3a 0 */\n"
+"    width: 0px;  /* \u6c34\u5e73\u6eda\u52a8\u6761\u5de6\u53f3\u6309\u94ae\u7684\u5bbd\u5ea6\u8bbe\u4e3a 0 */\n"
+"    background: none;\n"
+"    border: none;\n"
+"}\n"
+"\n"
+"/* \u9632\u6b62\u4e0a\u4e0b\u63a7\u5236\u6309\u94ae\u7559\u4e0b\u7a7a\u9699 */\n"
+"QScrollBar::sub-line:vertical, QScrollBar::add-line:vertical {\n"
+"    margin: 0;\n"
+"}\n"
+"\n"
+"QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal {\n"
+"    ma"
+                        "rgin: 0;\n"
+"}\n"
+"\n"
 "/* \u6807\u7b7e\u6587\u672c */\n"
 "QLabel {\n"
-"    color: #212121;\n"
+"    color: #FFFFFF;\n"
 "}\n"
 "\n"
 "/* \u63d0\u793a\u6846\uff08ToolTip\uff09 */\n"
@@ -212,12 +238,10 @@ class Ui_MainWindow(object):
 "}\n"
 "QProgressBar::chunk {\n"
 "    background: #6200EE;\n"
-" "
-                        "   border-radius: 4px;\n"
+"    border-radius: 4px;\n"
 "}\n"
 "\n"
-"---\n"
-"\u7ed9PushButton \u52a0\u4e2a\u5c5e\u6027 \u4e0d\u900f\u660e\u5ea6\u4e3a70")
+"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.gridLayout = QGridLayout(self.centralwidget)
@@ -265,7 +289,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 800, 34))
+        self.menubar.setGeometry(QRect(0, 0, 800, 33))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")

@@ -38,6 +38,7 @@ class LoginViewModel:
             msg.setText("登陆成功")
             msg.setInformativeText("For debug use only")
             msg.setWindowTitle("Don't be evil")
+            msg.setStyleSheet("font-size: 14px;")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec()
             self.stackedWidget.setCurrentIndex(2)
@@ -61,6 +62,7 @@ class LoginViewModel:
         msg.setInformativeText(message)
         msg.setWindowTitle(f"{action} 结果")
         msg.setStandardButtons(QMessageBox.Ok)
+        msg.setStyleSheet("font-size: 14px;")
 
         # 如果点击Done按钮，切换页面
         button = msg.exec()
@@ -106,6 +108,7 @@ class SignUpViewModel:
             msg.setText("密码不一致")
             msg.setInformativeText("请确保两次输入的密码相同")
             msg.setWindowTitle("注册失败")
+            msg.setStyleSheet("font-size: 14px;")
             msg.setStandardButtons(QMessageBox.Ok)
             msg.exec()
             return
@@ -128,6 +131,7 @@ class SignUpViewModel:
         msg.setInformativeText(message)
         msg.setWindowTitle(f"{action} 结果")
         msg.setStandardButtons(QMessageBox.Ok)
+        msg.setStyleSheet("font-size: 14px;")
 
         # 如果点击Done按钮，切换页面
         button = msg.exec()
