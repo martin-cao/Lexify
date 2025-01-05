@@ -6,7 +6,6 @@
 
 import os
 import time
-from turtledemo.penrose import start
 
 import pandas as pd
 from tqdm import tqdm
@@ -63,6 +62,8 @@ def main():
     book_id_mapping = {}
     word_id_mapping = {}
 
+    passed_items = []
+
     # Insert libraries
     print("[DEBUG] Start inserting libraries...")
     start_time = time.time()
@@ -72,7 +73,7 @@ def main():
         title = str(row.get("bk_name"))
 
         if not title:
-            print(f"[WARNING] Library '{title}' passed")
+            passed_items += title
             continue
 
         library_obj = Libraries(name=title)
@@ -85,6 +86,11 @@ def main():
     session.commit()
     end_time = time.time()
     print(f"[DEBUG] libraries import complete. Imported {len(book_id_mapping)} records. Took {end_time - start_time:.2f} seconds")
+    if len(passed_items) != 0:
+        print("Following libraries passed:\n")
+        for item in passed_items:
+            print(item)
+    passed_items = []
 
     # Insert words
     print("[DEBUG] Start inserting words...")
@@ -97,7 +103,7 @@ def main():
         w_diff = row.get("vc_difficulty")
 
         if not w_word:
-            print(f"[WARNING] Word '{w_word}' passed")
+            passed_items += w_word
             continue
 
         word_obj = Words(
@@ -114,6 +120,11 @@ def main():
     session.commit()
     end_time = time.time()
     print(f"[DEBUG] words import complete. Imported {len(word_id_mapping)} records. Took {end_time - start_time:.2f} seconds")
+    if len(passed_items) != 0:
+        print("Following words passed:\n")
+        for item in passed_items:
+            print(item)
+    passed_items = []
 
     # Insert translations
     print("[DEBUG] Start inserting translations...")
@@ -126,7 +137,7 @@ def main():
         translation_str = str(row.get("translation", ""))
 
         if not word_str or not translation_str:
-            print(f"[WARNING] Word id '{word_str}' passed")
+            passed_items += f"{word_str}; {translation_str}"
             continue
 
         word_obj = session.query(Words).filter_by(word=word_str).first()
@@ -137,6 +148,11 @@ def main():
     session.commit()
     end_time = time.time()
     print(f"[DEBUG] translatoins import complete. Imported {rows_updated} records. Took {end_time - start_time:.2f} seconds.")
+    if len(passed_items) != 0:
+        print("Following words passed:\n")
+        for item in passed_items:
+            print(item)
+    passed_items = []
 
     # Insert library_words
     print("[DEBUG] Start inserting library_words...")
@@ -148,11 +164,11 @@ def main():
         original_book_id = row.get("bv_book_id")
         word_str = row.get("bv_voc_id")
         if original_book_id not in book_id_mapping:
-            print(f"[WARNING] Book id '{original_book_id}' passed")
+            passed_items += f"{original_id}; {word_str}"
             continue
 
         if word_str not in word_id_mapping:
-            print(f"[WARNING] Word id '{word_str}' passed")
+            passed_items += f"{original_id}; {word_str}"
             continue
 
         db_lib_id = book_id_mapping[original_book_id]
@@ -167,6 +183,11 @@ def main():
     end_time = time.time()
 
     print(f"[DEBUG] library_words import complete. Imported {link_count} records. Took {end_time - start_time:.2f} seconds.")
+    if len(passed_items) != 0:
+        print("Following links passed:\n")
+        for item in passed_items:
+            print(item)
+    passed_items = []
 
     session.close()
     print(f"[DEBUG] All data imported. Database path: {os.path.abspath(db_path)}")
