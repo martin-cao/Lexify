@@ -14,8 +14,6 @@ from sqlalchemy import create_engine, Column, Integer, String, Text, ForeignKey,
 from sqlalchemy.orm import sessionmaker, relationship
 from sqlalchemy.ext.declarative import declarative_base
 
-from model.library import Library
-
 # Construct database models
 Base = declarative_base()
 
@@ -77,7 +75,7 @@ def main():
             print(f"[WARNING] Library '{title}' passed")
             continue
 
-        library_obj = Library(name=title)
+        library_obj = Libraries(name=title)
         session.add(library_obj)
         session.flush()
 
@@ -124,20 +122,17 @@ def main():
     rows_updated = 0
 
     for idx, row in tqdm(word_translation.iterrows(), total=len(word_translation), desc="[Translations]"):
-        original_word_id = row.get("word")
+        word_str = row.get("word", "")
         translation_str = str(row.get("translation", ""))
 
-        if not original_word_id or not translation_str:
-            print(f"[WARNING] Word id '{original_word_id}' passed")
+        if not word_str or not translation_str:
+            print(f"[WARNING] Word id '{word_str}' passed")
             continue
 
-        db_word_id = word_id_mapping.get(original_word_id)
-
-        if db_word_id:
-            word_obj = session.query(Words).filter_by(id=db_word_id).first()
-            if word_obj:
-                word_obj.definition = translation_str
-                rows_updated += 1
+        word_obj = session.query(Words).filter_by(word=word_str).first()
+        if word_obj:
+            word_obj.definition = translation_str
+            rows_updated += 1
 
     session.commit()
     end_time = time.time()
@@ -151,17 +146,17 @@ def main():
 
     for idx, row in tqdm(relation_book_word.iterrows(), total=len(relation_book_word), desc="[LibraryWords]"):
         original_book_id = row.get("bv_book_id")
-        original_word_id = row.get("bv_voc_id")
+        word_str = row.get("bv_voc_id")
         if original_book_id not in book_id_mapping:
             print(f"[WARNING] Book id '{original_book_id}' passed")
             continue
 
-        if original_word_id not in word_id_mapping:
-            print(f"[WARNING] Word id '{original_word_id}' passed")
+        if word_str not in word_id_mapping:
+            print(f"[WARNING] Word id '{word_str}' passed")
             continue
 
         db_lib_id = book_id_mapping[original_book_id]
-        db_word_id = word_id_mapping[original_word_id]
+        db_word_id = word_id_mapping[word_str]
 
         # Build the link
         link_obj = LibraryWords(library_id=db_lib_id, word_id=db_word_id)
