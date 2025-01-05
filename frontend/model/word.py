@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Integer, String, Text
 
-from database.database import session
+from database.database import DatabaseConnection
 from .base import Base
+
+session = DatabaseConnection.get_session()
 
 class Word(Base):
     # Model for the Words table
@@ -9,6 +11,7 @@ class Word(Base):
 
     id = Column(Integer, primary_key=True)
     word = Column(String(255), nullable=False)
+    pronunciation = Column(String(255), nullable=True)
     part_of_speech = Column(String(50), nullable=True)
     definition = Column(Text, nullable=False)
     example = Column(Text, nullable=True)
