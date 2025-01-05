@@ -55,19 +55,6 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addWidget(self.label_memorize_word)
 
-        self.label_memorize_pronunciation = QLabel(Form)
-        self.label_memorize_pronunciation.setObjectName(u"label_memorize_pronunciation")
-        self.label_memorize_pronunciation.setMinimumSize(QSize(240, 36))
-        self.label_memorize_pronunciation.setMaximumSize(QSize(16777215, 36))
-        font = QFont()
-        font.setPointSize(16)
-        font.setBold(False)
-        self.label_memorize_pronunciation.setFont(font)
-        self.label_memorize_pronunciation.setTextFormat(Qt.TextFormat.AutoText)
-        self.label_memorize_pronunciation.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.verticalLayout_2.addWidget(self.label_memorize_pronunciation)
-
 
         self.gridLayout.addLayout(self.verticalLayout_2, 1, 0, 1, 1)
 
@@ -158,7 +145,6 @@ class Ui_Form(object):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.pushButton_memorize_back.setText(QCoreApplication.translate("Form", u"\u8fd4\u56de", None))
         self.label_memorize_word.setText(QCoreApplication.translate("Form", u"# word", None))
-        self.label_memorize_pronunciation.setText(QCoreApplication.translate("Form", u"pronunciation", None))
         self.pushButton_memorize_option_1.setText(QCoreApplication.translate("Form", u"PushButton", None))
         self.pushButton_memorize_option_2.setText(QCoreApplication.translate("Form", u"PushButton", None))
         self.pushButton_memorize_option_4.setText(QCoreApplication.translate("Form", u"PushButton", None))
