@@ -146,7 +146,7 @@ QTabBar::tab:selected {
     color: #6200EE;
 }
 QTabBar::tab:hover {
-    background: #E0E0E0;
+    background: rgba(224, 224, 224, 0.3);
 }
 
 /* 滚动条 - 扁平、细条样式 */
@@ -239,7 +239,7 @@ QProgressBar::chunk {
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="login">
        <layout class="QGridLayout" name="gridLayout_2">
@@ -259,6 +259,13 @@ QProgressBar::chunk {
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_main"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="memorize">
+         <layout class="QGridLayout" name="gridLayout_5">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_memorize"/>
         </item>
        </layout>
       </widget>

@@ -159,7 +159,7 @@ class Ui_MainWindow(object):
 "    color: #6200EE;\n"
 "}\n"
 "QTabBar::tab:hover {\n"
-"    background: #E0E0E0;\n"
+"    background: rgba(224, 224, 224, 0.3);\n"
 "}\n"
 "\n"
 "/* \u6eda\u52a8\u6761 - \u6241\u5e73\u3001\u7ec6\u6761\u6837\u5f0f */\n"
@@ -167,8 +167,8 @@ class Ui_MainWindow(object):
 "    background: #F5F5F5;\n"
 "    height: 8px;\n"
 "    margin: 0 16px;\n"
-"    border-ra"
-                        "dius: 4px;\n"
+""
+                        "    border-radius: 4px;\n"
 "}\n"
 "QScrollBar::handle:horizontal {\n"
 "    background: #9E9E9E;\n"
@@ -198,9 +198,9 @@ class Ui_MainWindow(object):
 "    margin: 0;\n"
 "}\n"
 "\n"
-"QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal {\n"
-"    ma"
-                        "rgin: 0;\n"
+"QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal"
+                        " {\n"
+"    margin: 0;\n"
 "}\n"
 "\n"
 "/* \u6807\u7b7e\u6587\u672c */\n"
@@ -283,6 +283,16 @@ class Ui_MainWindow(object):
         self.gridLayout_4.addLayout(self.gridLayout_main, 0, 0, 1, 1)
 
         self.stackedWidget.addWidget(self.main)
+        self.memorize = QWidget()
+        self.memorize.setObjectName(u"memorize")
+        self.gridLayout_5 = QGridLayout(self.memorize)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.gridLayout_memorize = QGridLayout()
+        self.gridLayout_memorize.setObjectName(u"gridLayout_memorize")
+
+        self.gridLayout_5.addLayout(self.gridLayout_memorize, 0, 0, 1, 1)
+
+        self.stackedWidget.addWidget(self.memorize)
 
         self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
@@ -297,7 +307,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)

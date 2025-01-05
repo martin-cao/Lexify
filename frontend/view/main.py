@@ -62,26 +62,26 @@ class Ui_Form(object):
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setSpacing(48)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.pushButton = QPushButton(self.tab_main)
-        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton_main_learn = QPushButton(self.tab_main)
+        self.pushButton_main_learn.setObjectName(u"pushButton_main_learn")
         sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.pushButton.sizePolicy().hasHeightForWidth())
-        self.pushButton.setSizePolicy(sizePolicy1)
-        self.pushButton.setMinimumSize(QSize(128, 48))
-        self.pushButton.setMaximumSize(QSize(16777215, 48))
+        sizePolicy1.setHeightForWidth(self.pushButton_main_learn.sizePolicy().hasHeightForWidth())
+        self.pushButton_main_learn.setSizePolicy(sizePolicy1)
+        self.pushButton_main_learn.setMinimumSize(QSize(128, 48))
+        self.pushButton_main_learn.setMaximumSize(QSize(16777215, 48))
 
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.horizontalLayout.addWidget(self.pushButton_main_learn)
 
-        self.pushButton_2 = QPushButton(self.tab_main)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-        sizePolicy1.setHeightForWidth(self.pushButton_2.sizePolicy().hasHeightForWidth())
-        self.pushButton_2.setSizePolicy(sizePolicy1)
-        self.pushButton_2.setMinimumSize(QSize(128, 48))
-        self.pushButton_2.setMaximumSize(QSize(16777215, 48))
+        self.pushButton_main_revise = QPushButton(self.tab_main)
+        self.pushButton_main_revise.setObjectName(u"pushButton_main_revise")
+        sizePolicy1.setHeightForWidth(self.pushButton_main_revise.sizePolicy().hasHeightForWidth())
+        self.pushButton_main_revise.setSizePolicy(sizePolicy1)
+        self.pushButton_main_revise.setMinimumSize(QSize(128, 48))
+        self.pushButton_main_revise.setMaximumSize(QSize(16777215, 48))
 
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.horizontalLayout.addWidget(self.pushButton_main_revise)
 
 
         self.gridLayout.addLayout(self.horizontalLayout, 3, 0, 1, 1)
@@ -103,6 +103,8 @@ class Ui_Form(object):
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.pushButton_main_sync.sizePolicy().hasHeightForWidth())
         self.pushButton_main_sync.setSizePolicy(sizePolicy2)
+        icon = QIcon(QIcon.fromTheme(QIcon.ThemeIcon.SyncSynchronizing))
+        self.pushButton_main_sync.setIcon(icon)
 
         self.horizontalLayout_2.addWidget(self.pushButton_main_sync)
 
@@ -486,14 +488,14 @@ class Ui_Form(object):
 
         self.gridLayout_7.addWidget(self.label_13, 2, 0, 1, 1)
 
-        self.pushButton_3 = QPushButton(self.scrollAreaWidgetContents)
-        self.pushButton_3.setObjectName(u"pushButton_3")
-        sizePolicy.setHeightForWidth(self.pushButton_3.sizePolicy().hasHeightForWidth())
-        self.pushButton_3.setSizePolicy(sizePolicy)
-        self.pushButton_3.setMinimumSize(QSize(256, 32))
-        self.pushButton_3.setMaximumSize(QSize(256, 32))
+        self.pushButton_settings_changePwd = QPushButton(self.scrollAreaWidgetContents)
+        self.pushButton_settings_changePwd.setObjectName(u"pushButton_settings_changePwd")
+        sizePolicy.setHeightForWidth(self.pushButton_settings_changePwd.sizePolicy().hasHeightForWidth())
+        self.pushButton_settings_changePwd.setSizePolicy(sizePolicy)
+        self.pushButton_settings_changePwd.setMinimumSize(QSize(256, 32))
+        self.pushButton_settings_changePwd.setMaximumSize(QSize(256, 32))
 
-        self.gridLayout_7.addWidget(self.pushButton_3, 4, 1, 1, 1)
+        self.gridLayout_7.addWidget(self.pushButton_settings_changePwd, 4, 1, 1, 1)
 
 
         self.verticalLayout_2.addLayout(self.gridLayout_7)
@@ -622,7 +624,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
 
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -631,8 +633,8 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label_main_date.setText(QCoreApplication.translate("Form", u"# Date", None))
-        self.pushButton.setText(QCoreApplication.translate("Form", u"\u65b0\u5b66", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Form", u"\u590d\u4e60", None))
+        self.pushButton_main_learn.setText(QCoreApplication.translate("Form", u"\u65b0\u5b66", None))
+        self.pushButton_main_revise.setText(QCoreApplication.translate("Form", u"\u590d\u4e60", None))
         self.pushButton_main_sync.setText(QCoreApplication.translate("Form", u"\u540c\u6b65", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_main), QCoreApplication.translate("Form", u"\u80cc\u8bcd", None))
         self.label_9.setText(QCoreApplication.translate("Form", u"# \u6211\u7684\u6570\u636e", None))
@@ -658,7 +660,7 @@ class Ui_Form(object):
         self.label_12.setText(QCoreApplication.translate("Form", u"#### \u65e7\u5bc6\u7801", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"### \u4fee\u6539\u5bc6\u7801", None))
         self.label_13.setText(QCoreApplication.translate("Form", u"#### \u65b0\u5bc6\u7801", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Form", u"\u4fee\u6539\u5bc6\u7801", None))
+        self.pushButton_settings_changePwd.setText(QCoreApplication.translate("Form", u"\u4fee\u6539\u5bc6\u7801", None))
         self.label_11.setText(QCoreApplication.translate("Form", u"# \u5176\u4ed6\u8bbe\u7f6e", None))
         self.checkBox.setText(QCoreApplication.translate("Form", u"\u5f00\u542f\u5f00\u53d1\u8005\u6a21\u5f0f", None))
         self.label_6.setText(QCoreApplication.translate("Form", u"### \u5f00\u53d1\u8005\u6a21\u5f0f", None))

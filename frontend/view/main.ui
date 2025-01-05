@@ -29,7 +29,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_main">
       <attribute name="title">
@@ -99,7 +99,7 @@
             <number>48</number>
            </property>
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushButton_main_learn">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -124,7 +124,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="pushButton_main_revise">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -188,6 +188,9 @@
              </property>
              <property name="text">
               <string>同步</string>
+             </property>
+             <property name="icon">
+              <iconset theme="QIcon::ThemeIcon::SyncSynchronizing"/>
              </property>
             </widget>
            </item>
@@ -1038,7 +1041,7 @@
                 </widget>
                </item>
                <item row="4" column="1">
-                <widget class="QPushButton" name="pushButton_3">
+                <widget class="QPushButton" name="pushButton_settings_changePwd">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                    <horstretch>0</horstretch>
