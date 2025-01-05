@@ -1,14 +1,16 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, Time, Float
 from sqlalchemy.sql import func
 
-from database.database import session
+from database.database import DatabaseConnection
 from .base import Base
 
+session = DatabaseConnection.get_session()
 
 class User:
     # Model for the user
 
-    def __init__(self, username):
+    def __init__(self, id, username):
+        self.id = id
         self.username = username
 
 class LearningProgress(Base):
@@ -16,8 +18,8 @@ class LearningProgress(Base):
     __tablename__ = "learning_progress"
 
     id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, nullable=False)
     word_id = Column(Integer, ForeignKey("words.id"), nullable=False)
-    status = Column(String(50), default="in_progress", nullable=False)
     proficiency = Column(Integer, nullable=False)
     last_review = Column(Time, nullable=True)
     next_review = Column(Time, nullable=True)

@@ -1,8 +1,10 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey
 
-from database.database import session
+# from database.database import session
+from database.database import DatabaseConnection
 from model.base import Base
 
+session = DatabaseConnection.get_session()
 
 class Library(Base):
     # Model for the library table

@@ -8,7 +8,7 @@ user_bp = Blueprint('user', __name__)
 
 @user_bp.route('/register', methods=['POST'])
 def register():
-    # try:
+    try:
         # Parse request body
         data = request.get_json()
         username = data.get('username')
@@ -17,17 +17,18 @@ def register():
 
         # Validate parameters
         if not username or not password:
-            return jsonify({'status': 'error', 'message': 'Username and password are required'}), 400
+            return jsonify({'status': 'error', 'message': 'Username and password are required', 'uid': None}), 400
 
         # Call the sign-up service
         # result, msg = service.register_user(new_user)
-        result, msg = service.register_user(username, password)
+        result, msg, uid = service.register_user(username, password)
+        # print(f'[BACKEND DEBUG] UID: {uid}')
         if result:
-            return jsonify({'status': 'success', 'message': msg}), 201
+            return jsonify({'status': 'success', 'message': msg, 'uid': uid}), 201
         else:
-            return jsonify({'status': 'error', 'message': msg}), 400
-    # except Exception as e:
-    #     return jsonify({'status': 'error', 'message': str(e)}), 500
+            return jsonify({'status': 'error', 'message': msg, 'uid': None}), 400
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': str(e)}), 500
 
 @user_bp.route('/login', methods=['POST'])
 def login():
@@ -40,17 +41,18 @@ def login():
 
         # Validate input
         if not username or not password:
-            return jsonify({'status': 'error', 'message': 'Username and password are required'}), 400
+            return jsonify({'status': 'error', 'message': 'Username and password are required', 'uid': None}), 400
 
         # Call the service to authenticate the user
-        result, msg = service.login_user(the_user)
+        result, msg, uid = service.login_user(the_user)
+        # print(f'[BACKEND DEBUG] UID: {uid}')
         if result == True:
-            return jsonify({'status': 'success', 'message': msg}), 200
+            return jsonify({'status': 'success', 'message': msg, 'uid': uid}), 200
         else:
-            return jsonify({'status': 'error', 'message': msg}), 401
+            return jsonify({'status': 'error', 'message': msg, 'uid': None}), 401
 
     except Exception as e:
-        return jsonify({'status': 'error', 'message': str(e)}), 500
+        return jsonify({'status': 'error', 'message': str(e), 'uid': None}), 500
 
 @user_bp.route('/logout', methods=['POST'])
 def logout():
