@@ -42,7 +42,8 @@ class Words(Base):
 
 def main():
     # Link the database
-    db_path = "../backend/app/database/database_be.db"
+    # db_path = "../backend/app/database/database_be.db"
+    db_path = "../frontend/database/database_fe.db"
     engine = create_engine(f"sqlite:///{db_path}", echo=False)
     Session = sessionmaker(bind=engine)
     Base.metadata.create_all(engine)
@@ -61,6 +62,7 @@ def main():
     # Construct mappings
     book_id_mapping = {}
     word_id_mapping = {}
+    word_str_mapping = {}
 
     passed_items = []
 
@@ -73,7 +75,7 @@ def main():
         title = str(row.get("bk_name"))
 
         if not title:
-            passed_items += title
+            passed_items.append(title)
             continue
 
         library_obj = Libraries(name=title)
@@ -103,19 +105,19 @@ def main():
         w_diff = row.get("vc_difficulty")
 
         if not w_word:
-            passed_items += w_word
+            passed_items.append(w_word)
             continue
 
         word_obj = Words(
             word=w_word,
             pronunciation=w_pron,
-            definition="",
-
+            definition=""
         )
         session.add(word_obj)
         session.flush()
 
         word_id_mapping[original_id] = word_obj.id
+        word_str_mapping[word_obj.word] = word_obj.id
 
     session.commit()
     end_time = time.time()
@@ -137,21 +139,27 @@ def main():
         translation_str = str(row.get("translation", ""))
 
         if not word_str or not translation_str:
-            passed_items += f"{word_str}; {translation_str}"
+            passed_items.append(f"{word_str}; {translation_str}")
             continue
 
-        word_obj = session.query(Words).filter_by(word=word_str).first()
+        if word_str not in word_str_mapping:
+            passed_items.append(f"{word_str}; {translation_str}")
+            continue
+
+        db_word_id = word_str_mapping[word_str]
+        word_obj = session.query(Words).get(db_word_id)
+
         if word_obj:
-            word_obj.definition = translation_str
+            word_obj.definition += translation_str
             rows_updated += 1
 
     session.commit()
     end_time = time.time()
-    print(f"[DEBUG] translatoins import complete. Imported {rows_updated} records. Took {end_time - start_time:.2f} seconds.")
-    if len(passed_items) != 0:
-        print("Following words passed:\n")
-        for item in passed_items:
-            print(item)
+    print(f"[DEBUG] translations import complete. Imported {rows_updated} records. Took {end_time - start_time:.2f} seconds.")
+    # if len(passed_items) != 0:
+    #     print("Following words passed:\n")
+    #     for item in passed_items:
+    #         print(item)
     passed_items = []
 
     # Insert library_words
@@ -164,11 +172,11 @@ def main():
         original_book_id = row.get("bv_book_id")
         word_str = row.get("bv_voc_id")
         if original_book_id not in book_id_mapping:
-            passed_items += f"{original_id}; {word_str}"
+            passed_items.append(f"{original_id}; {word_str}")
             continue
 
         if word_str not in word_id_mapping:
-            passed_items += f"{original_id}; {word_str}"
+            passed_items.append(f"{original_id}; {word_str}")
             continue
 
         db_lib_id = book_id_mapping[original_book_id]
@@ -188,6 +196,12 @@ def main():
         for item in passed_items:
             print(item)
     passed_items = []
+
+    # session.execute("""
+    # DELETE FROM words
+    # WHERE definition = ''
+    # """)
+    # session.commit()
 
     session.close()
     print(f"[DEBUG] All data imported. Database path: {os.path.abspath(db_path)}")
