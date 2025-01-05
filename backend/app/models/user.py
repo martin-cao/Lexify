@@ -18,8 +18,6 @@ class UserLibraryProgress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     word_id = db.Column(db.Integer, db.ForeignKey("words.id"), nullable=False)
-    library_id = db.Column(db.Integer, db.ForeignKey("libraries.id"), nullable=False)
-    status = db.Column(db.String(50), default="in_progress", nullable=False)
     proficiency = db.Column(db.Integer, nullable=False)
     last_review = db.Column(db.Time, nullable=True)
     next_review = db.Column(db.Time, nullable=True)

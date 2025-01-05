@@ -13,19 +13,20 @@ def register_user(username, password):
     # password = user.password_sha256
 
     if not username or not password:
-        return False, "用户名和密码不能为空"
+        return False, "用户名和密码不能为空", None
 
     if username_exists(username):
-        return False, "用户已存在"
+        return False, "用户已存在", None
 
     new_user = User(username=username, password_sha256=password)
     db.session.add(new_user)
     try:
         db.session.commit()
-        return True, "注册成功"
+        print(f'[BACKEND DEBUG] UID: {new_user.id}')
+        return True, "注册成功", new_user.id
     except Exception as e:
         db.session.rollback()
-        return False, f"发生了一个错误：{str(e)}"
+        return False, f"发生了一个错误：{str(e)}", None
 
 
 def login_user(user: User):
@@ -37,12 +38,13 @@ def login_user(user: User):
     username = user.username
     password = user.password_sha256
 
-    user=User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first()
     if not user:
-        return False, "用户名不存在"
+        return False, "用户名不存在", None
     if not check_password(username, password):
-        return False, "密码错误"
-    return True, "登陆成功"
+        return False, "密码错误", None
+    # print(f'[BACKEND DEBUG] UID: {user.id}')
+    return True, "登陆成功", user.id
 
 def logout_user():
     """

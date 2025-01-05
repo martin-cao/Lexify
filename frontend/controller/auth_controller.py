@@ -14,9 +14,12 @@ def register(username, password):
     """
 
     response = AuthService.register(username, password)
-    print(f"[DEBUG] AuthService.register response: {response}")
+    # print(f'[FRONTEND DEBUG] Response: \n{response}')
+    # print(f"[DEBUG] AuthService.register response: {response}")
     if response.get('status') == 'success':
         config = load_config()
+        print(f'[FRONTEND DEBUG] UID: {response.get('uid')}')
+        config['uid'] = response.get('uid')
         config['username'] = username
         config['password'] = password
         save_config(config)
@@ -33,8 +36,11 @@ def login(username, password):
     """
 
     response = AuthService.login(username, password)
+    # print(f'[FRONTEND DEBUG] Response: \n{response}')
     if response.get('status') == 'success':
         config = load_config()
+        print(f'[FRONTEND DEBUG] UID: {response.get('uid')}')
+        config['uid'] = response.get('uid')
         config['username'] = username
         config['password'] = password
         save_config(config)
@@ -50,6 +56,7 @@ def logout():
 
     try:
         config = load_config()
+        config.pop('uid', None)
         config.pop('username', None)
         config.pop('password', None)
         save_config(config)
