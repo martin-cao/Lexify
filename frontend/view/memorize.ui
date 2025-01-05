@@ -86,37 +86,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QLabel" name="label_memorize_pronunciation">
-       <property name="minimumSize">
-        <size>
-         <width>240</width>
-         <height>36</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>16777215</width>
-         <height>36</height>
-        </size>
-       </property>
-       <property name="font">
-        <font>
-         <pointsize>16</pointsize>
-         <bold>false</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>pronunciation</string>
-       </property>
-       <property name="textFormat">
-        <enum>Qt::TextFormat::AutoText</enum>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item row="2" column="0">
