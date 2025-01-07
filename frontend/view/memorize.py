@@ -48,7 +48,7 @@ class Ui_Form(object):
         self.verticalLayout_2.setContentsMargins(72, -1, 72, -1)
         self.label_memorize_word = QLabel(Form)
         self.label_memorize_word.setObjectName(u"label_memorize_word")
-        self.label_memorize_word.setMinimumSize(QSize(240, 56))
+        self.label_memorize_word.setMinimumSize(QSize(120, 56))
         self.label_memorize_word.setMaximumSize(QSize(16777215, 56))
         self.label_memorize_word.setTextFormat(Qt.TextFormat.MarkdownText)
         self.label_memorize_word.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -73,7 +73,7 @@ class Ui_Form(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.pushButton_memorize_option_1.sizePolicy().hasHeightForWidth())
         self.pushButton_memorize_option_1.setSizePolicy(sizePolicy)
-        self.pushButton_memorize_option_1.setMinimumSize(QSize(240, 48))
+        self.pushButton_memorize_option_1.setMinimumSize(QSize(120, 48))
         self.pushButton_memorize_option_1.setMaximumSize(QSize(16777215, 48))
 
         self.verticalLayout.addWidget(self.pushButton_memorize_option_1)
@@ -85,7 +85,7 @@ class Ui_Form(object):
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.pushButton_memorize_option_2.sizePolicy().hasHeightForWidth())
         self.pushButton_memorize_option_2.setSizePolicy(sizePolicy1)
-        self.pushButton_memorize_option_2.setMinimumSize(QSize(240, 48))
+        self.pushButton_memorize_option_2.setMinimumSize(QSize(120, 48))
         self.pushButton_memorize_option_2.setMaximumSize(QSize(16777215, 48))
 
         self.verticalLayout.addWidget(self.pushButton_memorize_option_2)
@@ -94,7 +94,7 @@ class Ui_Form(object):
         self.pushButton_memorize_option_4.setObjectName(u"pushButton_memorize_option_4")
         sizePolicy.setHeightForWidth(self.pushButton_memorize_option_4.sizePolicy().hasHeightForWidth())
         self.pushButton_memorize_option_4.setSizePolicy(sizePolicy)
-        self.pushButton_memorize_option_4.setMinimumSize(QSize(240, 48))
+        self.pushButton_memorize_option_4.setMinimumSize(QSize(120, 48))
         self.pushButton_memorize_option_4.setMaximumSize(QSize(16777215, 48))
 
         self.verticalLayout.addWidget(self.pushButton_memorize_option_4)
@@ -103,7 +103,7 @@ class Ui_Form(object):
         self.pushButton_memorize_option_3.setObjectName(u"pushButton_memorize_option_3")
         sizePolicy.setHeightForWidth(self.pushButton_memorize_option_3.sizePolicy().hasHeightForWidth())
         self.pushButton_memorize_option_3.setSizePolicy(sizePolicy)
-        self.pushButton_memorize_option_3.setMinimumSize(QSize(240, 48))
+        self.pushButton_memorize_option_3.setMinimumSize(QSize(120, 48))
         self.pushButton_memorize_option_3.setMaximumSize(QSize(16777215, 48))
 
         self.verticalLayout.addWidget(self.pushButton_memorize_option_3)

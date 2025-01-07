@@ -3,7 +3,8 @@ from sqlalchemy import Column, Integer, String, Text
 from database.database import DatabaseConnection
 from .base import Base
 
-session = DatabaseConnection.get_session()
+db_conn = DatabaseConnection()
+session = db_conn.get_session()
 
 class Word(Base):
     # Model for the Words table
