@@ -15,11 +15,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QComboBox, QFrame,
-    QGridLayout, QHBoxLayout, QHeaderView, QLabel,
-    QLineEdit, QProgressBar, QPushButton, QScrollArea,
-    QSizePolicy, QSpacerItem, QTabWidget, QTableView,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox,
+    QFrame, QGridLayout, QHBoxLayout, QHeaderView,
+    QLabel, QLineEdit, QProgressBar, QPushButton,
+    QScrollArea, QSizePolicy, QSpacerItem, QTabWidget,
+    QTableView, QVBoxLayout, QWidget)
 import assets_rc
 
 class Ui_Form(object):
@@ -138,13 +138,13 @@ class Ui_Form(object):
 
         self.horizontalLayout_9.addWidget(self.label_9)
 
-        self.label_21 = QLabel(self.tab_lexicons)
-        self.label_21.setObjectName(u"label_21")
-        self.label_21.setMinimumSize(QSize(128, 0))
-        self.label_21.setMaximumSize(QSize(128, 16777215))
-        self.label_21.setTextFormat(Qt.TextFormat.MarkdownText)
+        self.label_lexicon_username = QLabel(self.tab_lexicons)
+        self.label_lexicon_username.setObjectName(u"label_lexicon_username")
+        self.label_lexicon_username.setMinimumSize(QSize(128, 0))
+        self.label_lexicon_username.setMaximumSize(QSize(128, 16777215))
+        self.label_lexicon_username.setTextFormat(Qt.TextFormat.MarkdownText)
 
-        self.horizontalLayout_9.addWidget(self.label_21)
+        self.horizontalLayout_9.addWidget(self.label_lexicon_username)
 
         self.horizontalSpacer_6 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -259,14 +259,14 @@ class Ui_Form(object):
 
         self.horizontalLayout_5.addWidget(self.label_2)
 
-        self.label_7 = QLabel(self.tab_lexicons)
-        self.label_7.setObjectName(u"label_7")
-        sizePolicy3.setHeightForWidth(self.label_7.sizePolicy().hasHeightForWidth())
-        self.label_7.setSizePolicy(sizePolicy3)
-        self.label_7.setMinimumSize(QSize(64, 0))
-        self.label_7.setMaximumSize(QSize(64, 16777215))
+        self.label_lexicon_learned = QLabel(self.tab_lexicons)
+        self.label_lexicon_learned.setObjectName(u"label_lexicon_learned")
+        sizePolicy3.setHeightForWidth(self.label_lexicon_learned.sizePolicy().hasHeightForWidth())
+        self.label_lexicon_learned.setSizePolicy(sizePolicy3)
+        self.label_lexicon_learned.setMinimumSize(QSize(64, 0))
+        self.label_lexicon_learned.setMaximumSize(QSize(64, 16777215))
 
-        self.horizontalLayout_5.addWidget(self.label_7)
+        self.horizontalLayout_5.addWidget(self.label_lexicon_learned)
 
         self.horizontalSpacer_3 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
@@ -282,15 +282,15 @@ class Ui_Form(object):
 
         self.horizontalLayout_5.addWidget(self.label_3)
 
-        self.label_8 = QLabel(self.tab_lexicons)
-        self.label_8.setObjectName(u"label_8")
-        sizePolicy3.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
-        self.label_8.setSizePolicy(sizePolicy3)
-        self.label_8.setMinimumSize(QSize(64, 0))
-        self.label_8.setMaximumSize(QSize(64, 16777215))
-        self.label_8.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
+        self.label_lexicon_all = QLabel(self.tab_lexicons)
+        self.label_lexicon_all.setObjectName(u"label_lexicon_all")
+        sizePolicy3.setHeightForWidth(self.label_lexicon_all.sizePolicy().hasHeightForWidth())
+        self.label_lexicon_all.setSizePolicy(sizePolicy3)
+        self.label_lexicon_all.setMinimumSize(QSize(64, 0))
+        self.label_lexicon_all.setMaximumSize(QSize(64, 16777215))
+        self.label_lexicon_all.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
 
-        self.horizontalLayout_5.addWidget(self.label_8)
+        self.horizontalLayout_5.addWidget(self.label_lexicon_all)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_5)
@@ -319,12 +319,12 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.comboBox = QComboBox(self.tab_lexicons)
-        self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setMinimumSize(QSize(256, 48))
-        self.comboBox.setMaximumSize(QSize(16777215, 48))
+        self.comboBox_lib = QComboBox(self.tab_lexicons)
+        self.comboBox_lib.setObjectName(u"comboBox_lib")
+        self.comboBox_lib.setMinimumSize(QSize(256, 48))
+        self.comboBox_lib.setMaximumSize(QSize(16777215, 48))
 
-        self.verticalLayout.addWidget(self.comboBox)
+        self.verticalLayout.addWidget(self.comboBox_lib)
 
 
         self.verticalLayout_6.addLayout(self.verticalLayout)
@@ -332,7 +332,9 @@ class Ui_Form(object):
         self.tableView = QTableView(self.tab_lexicons)
         self.tableView.setObjectName(u"tableView")
         self.tableView.setFrameShape(QFrame.Shape.StyledPanel)
+        self.tableView.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.tableView.setProperty(u"showDropIndicator", True)
+        self.tableView.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
 
         self.verticalLayout_6.addWidget(self.tableView)
 
@@ -353,6 +355,7 @@ class Ui_Form(object):
         self.gridLayout_4.setObjectName(u"gridLayout_4")
         self.scrollArea = QScrollArea(self.tab_settings)
         self.scrollArea.setObjectName(u"scrollArea")
+        self.scrollArea.setStyleSheet(u"background: transparent;")
         self.scrollArea.setFrameShape(QFrame.Shape.NoFrame)
         self.scrollArea.setFrameShadow(QFrame.Shadow.Sunken)
         self.scrollArea.setLineWidth(1)
@@ -360,9 +363,17 @@ class Ui_Form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 759, 676))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, -149, 759, 676))
+        self.scrollAreaWidgetContents.setStyleSheet(u"")
         self.gridLayout_5 = QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.line_2 = QFrame(self.scrollAreaWidgetContents)
+        self.line_2.setObjectName(u"line_2")
+        self.line_2.setFrameShape(QFrame.Shape.HLine)
+        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_5.addWidget(self.line_2, 1, 0, 1, 1)
+
         self.horizontalLayout_4 = QHBoxLayout()
         self.horizontalLayout_4.setSpacing(12)
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
@@ -402,12 +413,115 @@ class Ui_Form(object):
 
         self.gridLayout_5.addLayout(self.horizontalLayout_4, 0, 0, 1, 1)
 
-        self.line_2 = QFrame(self.scrollAreaWidgetContents)
-        self.line_2.setObjectName(u"line_2")
-        self.line_2.setFrameShape(QFrame.Shape.HLine)
-        self.line_2.setFrameShadow(QFrame.Shadow.Sunken)
+        self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout_5.addWidget(self.line_2, 1, 0, 1, 1)
+        self.gridLayout_5.addItem(self.verticalSpacer_2, 7, 0, 1, 1)
+
+        self.line_3 = QFrame(self.scrollAreaWidgetContents)
+        self.line_3.setObjectName(u"line_3")
+        self.line_3.setFrameShape(QFrame.Shape.HLine)
+        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_5.addWidget(self.line_3, 3, 0, 1, 1)
+
+        self.verticalLayout_4 = QVBoxLayout()
+        self.verticalLayout_4.setSpacing(12)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.horizontalLayout_7 = QHBoxLayout()
+        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
+        self.label_11 = QLabel(self.scrollAreaWidgetContents)
+        self.label_11.setObjectName(u"label_11")
+        self.label_11.setMinimumSize(QSize(128, 36))
+        self.label_11.setMaximumSize(QSize(128, 36))
+        self.label_11.setTextFormat(Qt.TextFormat.MarkdownText)
+
+        self.horizontalLayout_7.addWidget(self.label_11)
+
+        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_7.addItem(self.horizontalSpacer_4)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_7)
+
+        self.gridLayout_6 = QGridLayout()
+        self.gridLayout_6.setObjectName(u"gridLayout_6")
+        self.checkBox_settings_devmode = QCheckBox(self.scrollAreaWidgetContents)
+        self.checkBox_settings_devmode.setObjectName(u"checkBox_settings_devmode")
+
+        self.gridLayout_6.addWidget(self.checkBox_settings_devmode, 0, 1, 1, 1)
+
+        self.label_6 = QLabel(self.scrollAreaWidgetContents)
+        self.label_6.setObjectName(u"label_6")
+        sizePolicy3.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
+        self.label_6.setSizePolicy(sizePolicy3)
+        self.label_6.setMinimumSize(QSize(128, 36))
+        self.label_6.setMaximumSize(QSize(128, 36))
+        self.label_6.setTextFormat(Qt.TextFormat.MarkdownText)
+
+        self.gridLayout_6.addWidget(self.label_6, 0, 0, 1, 1)
+
+        self.label_15 = QLabel(self.scrollAreaWidgetContents)
+        self.label_15.setObjectName(u"label_15")
+        sizePolicy3.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
+        self.label_15.setSizePolicy(sizePolicy3)
+        self.label_15.setMinimumSize(QSize(128, 36))
+        self.label_15.setMaximumSize(QSize(128, 36))
+        self.label_15.setTextFormat(Qt.TextFormat.MarkdownText)
+        self.label_15.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+
+        self.gridLayout_6.addWidget(self.label_15, 1, 0, 1, 1)
+
+        self.label_16 = QLabel(self.scrollAreaWidgetContents)
+        self.label_16.setObjectName(u"label_16")
+        self.label_16.setStyleSheet(u"color: rgb(102, 102, 102);")
+
+        self.gridLayout_6.addWidget(self.label_16, 2, 1, 1, 1)
+
+        self.lineEdit_settings_server_url = QLineEdit(self.scrollAreaWidgetContents)
+        self.lineEdit_settings_server_url.setObjectName(u"lineEdit_settings_server_url")
+
+        self.gridLayout_6.addWidget(self.lineEdit_settings_server_url, 1, 1, 1, 1)
+
+
+        self.verticalLayout_4.addLayout(self.gridLayout_6)
+
+
+        self.gridLayout_5.addLayout(self.verticalLayout_4, 4, 0, 1, 1)
+
+        self.verticalLayout_9 = QVBoxLayout()
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.horizontalLayout_8 = QHBoxLayout()
+        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
+        self.label_17 = QLabel(self.scrollAreaWidgetContents)
+        self.label_17.setObjectName(u"label_17")
+        self.label_17.setMinimumSize(QSize(128, 36))
+        self.label_17.setMaximumSize(QSize(128, 36))
+        self.label_17.setTextFormat(Qt.TextFormat.MarkdownText)
+
+        self.horizontalLayout_8.addWidget(self.label_17)
+
+        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.horizontalLayout_8.addItem(self.horizontalSpacer_5)
+
+
+        self.verticalLayout_9.addLayout(self.horizontalLayout_8)
+
+        self.label_22 = QLabel(self.scrollAreaWidgetContents)
+        self.label_22.setObjectName(u"label_22")
+
+        self.verticalLayout_9.addWidget(self.label_22)
+
+
+        self.gridLayout_5.addLayout(self.verticalLayout_9, 6, 0, 1, 1)
+
+        self.line_4 = QFrame(self.scrollAreaWidgetContents)
+        self.line_4.setObjectName(u"line_4")
+        self.line_4.setFrameShape(QFrame.Shape.HLine)
+        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_5.addWidget(self.line_4, 5, 0, 1, 1)
 
         self.verticalLayout_2 = QVBoxLayout()
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
@@ -494,6 +608,24 @@ class Ui_Form(object):
         self.pushButton_settings_changePwd.setSizePolicy(sizePolicy)
         self.pushButton_settings_changePwd.setMinimumSize(QSize(256, 32))
         self.pushButton_settings_changePwd.setMaximumSize(QSize(256, 32))
+        self.pushButton_settings_changePwd.setStyleSheet(u"QPushButton {\n"
+"    background: rgba(98, 0, 238, 0.7); /* \u8bbe\u7f6e\u4e3a 70% \u4e0d\u900f\u660e */\n"
+"    color: #FFFFFF;\n"
+"    padding: 8px 16px;\n"
+"    border: none;\n"
+"    border-radius: 14px;\n"
+"    font-weight: 500;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background: rgba(55, 0, 179, 0.7); /* \u52a0\u6df1\u4e3b\u8272\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background: rgba(49, 27, 146, 0.7); /* \u66f4\u6df1\u4e00\u5c42\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"}\n"
+"QPushButton:disabled {\n"
+"    background: rgba(189, 189, 189, 0.7); /* \u7981\u7528\u72b6\u6001\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"    color: rgba(224, 224, 224, 0.7);\n"
+"}")
 
         self.gridLayout_7.addWidget(self.pushButton_settings_changePwd, 4, 1, 1, 1)
 
@@ -502,116 +634,6 @@ class Ui_Form(object):
 
 
         self.gridLayout_5.addLayout(self.verticalLayout_2, 2, 0, 1, 1)
-
-        self.line_3 = QFrame(self.scrollAreaWidgetContents)
-        self.line_3.setObjectName(u"line_3")
-        self.line_3.setFrameShape(QFrame.Shape.HLine)
-        self.line_3.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_5.addWidget(self.line_3, 3, 0, 1, 1)
-
-        self.verticalLayout_4 = QVBoxLayout()
-        self.verticalLayout_4.setSpacing(12)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        self.horizontalLayout_7 = QHBoxLayout()
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.label_11 = QLabel(self.scrollAreaWidgetContents)
-        self.label_11.setObjectName(u"label_11")
-        self.label_11.setMinimumSize(QSize(128, 36))
-        self.label_11.setMaximumSize(QSize(128, 36))
-        self.label_11.setTextFormat(Qt.TextFormat.MarkdownText)
-
-        self.horizontalLayout_7.addWidget(self.label_11)
-
-        self.horizontalSpacer_4 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_7.addItem(self.horizontalSpacer_4)
-
-
-        self.verticalLayout_4.addLayout(self.horizontalLayout_7)
-
-        self.gridLayout_6 = QGridLayout()
-        self.gridLayout_6.setObjectName(u"gridLayout_6")
-        self.checkBox = QCheckBox(self.scrollAreaWidgetContents)
-        self.checkBox.setObjectName(u"checkBox")
-
-        self.gridLayout_6.addWidget(self.checkBox, 0, 1, 1, 1)
-
-        self.label_6 = QLabel(self.scrollAreaWidgetContents)
-        self.label_6.setObjectName(u"label_6")
-        sizePolicy3.setHeightForWidth(self.label_6.sizePolicy().hasHeightForWidth())
-        self.label_6.setSizePolicy(sizePolicy3)
-        self.label_6.setMinimumSize(QSize(128, 36))
-        self.label_6.setMaximumSize(QSize(128, 36))
-        self.label_6.setTextFormat(Qt.TextFormat.MarkdownText)
-
-        self.gridLayout_6.addWidget(self.label_6, 0, 0, 1, 1)
-
-        self.label_15 = QLabel(self.scrollAreaWidgetContents)
-        self.label_15.setObjectName(u"label_15")
-        sizePolicy3.setHeightForWidth(self.label_15.sizePolicy().hasHeightForWidth())
-        self.label_15.setSizePolicy(sizePolicy3)
-        self.label_15.setMinimumSize(QSize(128, 36))
-        self.label_15.setMaximumSize(QSize(128, 36))
-        self.label_15.setTextFormat(Qt.TextFormat.MarkdownText)
-        self.label_15.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
-
-        self.gridLayout_6.addWidget(self.label_15, 1, 0, 1, 1)
-
-        self.label_16 = QLabel(self.scrollAreaWidgetContents)
-        self.label_16.setObjectName(u"label_16")
-        self.label_16.setStyleSheet(u"color: rgb(191, 191, 191);")
-
-        self.gridLayout_6.addWidget(self.label_16, 2, 1, 1, 1)
-
-        self.lineEdit_settings_server_url = QLineEdit(self.scrollAreaWidgetContents)
-        self.lineEdit_settings_server_url.setObjectName(u"lineEdit_settings_server_url")
-
-        self.gridLayout_6.addWidget(self.lineEdit_settings_server_url, 1, 1, 1, 1)
-
-
-        self.verticalLayout_4.addLayout(self.gridLayout_6)
-
-
-        self.gridLayout_5.addLayout(self.verticalLayout_4, 4, 0, 1, 1)
-
-        self.line_4 = QFrame(self.scrollAreaWidgetContents)
-        self.line_4.setObjectName(u"line_4")
-        self.line_4.setFrameShape(QFrame.Shape.HLine)
-        self.line_4.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_5.addWidget(self.line_4, 5, 0, 1, 1)
-
-        self.verticalLayout_9 = QVBoxLayout()
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.horizontalLayout_8 = QHBoxLayout()
-        self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
-        self.label_17 = QLabel(self.scrollAreaWidgetContents)
-        self.label_17.setObjectName(u"label_17")
-        self.label_17.setMinimumSize(QSize(128, 36))
-        self.label_17.setMaximumSize(QSize(128, 36))
-        self.label_17.setTextFormat(Qt.TextFormat.MarkdownText)
-
-        self.horizontalLayout_8.addWidget(self.label_17)
-
-        self.horizontalSpacer_5 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-
-        self.horizontalLayout_8.addItem(self.horizontalSpacer_5)
-
-
-        self.verticalLayout_9.addLayout(self.horizontalLayout_8)
-
-        self.label_22 = QLabel(self.scrollAreaWidgetContents)
-        self.label_22.setObjectName(u"label_22")
-
-        self.verticalLayout_9.addWidget(self.label_22)
-
-
-        self.gridLayout_5.addLayout(self.verticalLayout_9, 6, 0, 1, 1)
-
-        self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.gridLayout_5.addItem(self.verticalSpacer_2, 7, 0, 1, 1)
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
@@ -638,7 +660,7 @@ class Ui_Form(object):
         self.pushButton_main_sync.setText(QCoreApplication.translate("Form", u"\u540c\u6b65", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_main), QCoreApplication.translate("Form", u"\u80cc\u8bcd", None))
         self.label_9.setText(QCoreApplication.translate("Form", u"# \u6211\u7684\u6570\u636e", None))
-        self.label_21.setText(QCoreApplication.translate("Form", u"username", None))
+        self.label_lexicon_username.setText(QCoreApplication.translate("Form", u"### username", None))
         self.label_lexicon_time_all.setText(QCoreApplication.translate("Form", u"## Time", None))
         self.label_lexicon_count_all.setText(QCoreApplication.translate("Form", u"## Count", None))
         self.label_20.setText(QCoreApplication.translate("Form", u"### \u7d2f\u8ba1\u65f6\u957f", None))
@@ -648,26 +670,26 @@ class Ui_Form(object):
         self.label_18.setText(QCoreApplication.translate("Form", u"### \u4eca\u65e5\u603b\u65f6\u957f", None))
         self.label_10.setText(QCoreApplication.translate("Form", u"### \u4eca\u65e5\u5b66\u4e60/\u590d\u4e60", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"\u5df2\u5b66\u4e60", None))
-        self.label_7.setText(QCoreApplication.translate("Form", u"Learned", None))
+        self.label_lexicon_learned.setText(QCoreApplication.translate("Form", u"Learned", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"\u603b\u8bcd\u6570", None))
-        self.label_8.setText(QCoreApplication.translate("Form", u"Total", None))
+        self.label_lexicon_all.setText(QCoreApplication.translate("Form", u"Total", None))
         self.label.setText(QCoreApplication.translate("Form", u"# \u6b63\u5728\u5b66\u4e60", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_lexicons), QCoreApplication.translate("Form", u"\u8bcd\u5e93", None))
         self.label_settings_profile_pic.setText("")
         self.label_settings_username.setText(QCoreApplication.translate("Form", u"Welcome Back, Username", None))
+        self.label_11.setText(QCoreApplication.translate("Form", u"# \u5176\u4ed6\u8bbe\u7f6e", None))
+        self.checkBox_settings_devmode.setText(QCoreApplication.translate("Form", u"\u5f00\u542f\u5f00\u53d1\u8005\u6a21\u5f0f", None))
+        self.label_6.setText(QCoreApplication.translate("Form", u"### \u5f00\u53d1\u8005\u6a21\u5f0f", None))
+        self.label_15.setText(QCoreApplication.translate("Form", u"#### \u81ea\u5b9a\u4e49\u670d\u52a1\u5668", None))
+        self.label_16.setText(QCoreApplication.translate("Form", u"\u7528\u6237\u53ef\u4ee5\u79c1\u6709\u90e8\u7f72 Lexify \u670d\u52a1\u7aef", None))
+        self.label_17.setText(QCoreApplication.translate("Form", u"# \u5173\u4e8e", None))
+        self.label_22.setText(QCoreApplication.translate("Form", u"Lexify \u662f\u4e00\u6b3e\u4e13\u6ce8\u4e8e\u8bcd\u6c47\u5b66\u4e60\u7684\u5e94\u7528\uff0c\u5e2e\u52a9\u7528\u6237\u8f7b\u677e\u8bb0\u5fc6\u5355\u8bcd\u5e76\u8ffd\u8e2a\u5b66\u4e60\u8fdb\u5ea6\u3002", None))
         self.label_4.setText(QCoreApplication.translate("Form", u"# \u7528\u6237\u8bbe\u7f6e", None))
         self.label_14.setText(QCoreApplication.translate("Form", u"#### \u786e\u8ba4\u65b0\u5bc6\u7801", None))
         self.label_12.setText(QCoreApplication.translate("Form", u"#### \u65e7\u5bc6\u7801", None))
         self.label_5.setText(QCoreApplication.translate("Form", u"### \u4fee\u6539\u5bc6\u7801", None))
         self.label_13.setText(QCoreApplication.translate("Form", u"#### \u65b0\u5bc6\u7801", None))
         self.pushButton_settings_changePwd.setText(QCoreApplication.translate("Form", u"\u4fee\u6539\u5bc6\u7801", None))
-        self.label_11.setText(QCoreApplication.translate("Form", u"# \u5176\u4ed6\u8bbe\u7f6e", None))
-        self.checkBox.setText(QCoreApplication.translate("Form", u"\u5f00\u542f\u5f00\u53d1\u8005\u6a21\u5f0f", None))
-        self.label_6.setText(QCoreApplication.translate("Form", u"### \u5f00\u53d1\u8005\u6a21\u5f0f", None))
-        self.label_15.setText(QCoreApplication.translate("Form", u"#### \u81ea\u5b9a\u4e49\u670d\u52a1\u5668", None))
-        self.label_16.setText(QCoreApplication.translate("Form", u"\u7528\u6237\u53ef\u4ee5\u79c1\u6709\u90e8\u7f72 Lexify \u670d\u52a1\u7aef", None))
-        self.label_17.setText(QCoreApplication.translate("Form", u"# \u5173\u4e8e", None))
-        self.label_22.setText(QCoreApplication.translate("Form", u"Lexify \u662f\u4e00\u6b3e\u4e13\u6ce8\u4e8e\u8bcd\u6c47\u5b66\u4e60\u7684\u5e94\u7528\uff0c\u5e2e\u52a9\u7528\u6237\u8f7b\u677e\u8bb0\u5fc6\u5355\u8bcd\u5e76\u8ffd\u8e2a\u5b66\u4e60\u8fdb\u5ea6\u3002", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_settings), QCoreApplication.translate("Form", u"\u8bbe\u7f6e", None))
     # retranslateUi
 

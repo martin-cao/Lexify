@@ -1,10 +1,12 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, Time, Float
-from sqlalchemy.sql import func
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, Time, Float, Date
+import hashlib
 
 from database.database import DatabaseConnection
 from .base import Base
 
-session = DatabaseConnection.get_session()
+db_conn = DatabaseConnection()
+session = db_conn.get_session()
+
 
 class User:
     # Model for the user
@@ -17,12 +19,12 @@ class LearningProgress(Base):
     # Model for the learning_progress table
     __tablename__ = "learning_progress"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, nullable=False)
     word_id = Column(Integer, ForeignKey("words.id"), nullable=False)
     proficiency = Column(Integer, nullable=False)
-    last_review = Column(Time, nullable=True)
-    next_review = Column(Time, nullable=True)
+    last_review = Column(Date, nullable=True)
+    next_review = Column(Date, nullable=True)
     review_count = Column(Integer, nullable=False)
 
 
@@ -55,3 +57,6 @@ def delete_learning_progress(progress_id):
     session.delete(progress)
     session.commit()
     return progress
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()

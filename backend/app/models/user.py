@@ -1,5 +1,4 @@
 from app import db
-from sqlalchemy.sql import func
 
 class User(db.Model):
     # Model for the users table
@@ -19,8 +18,8 @@ class UserLibraryProgress(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     word_id = db.Column(db.Integer, db.ForeignKey("words.id"), nullable=False)
     proficiency = db.Column(db.Integer, nullable=False)
-    last_review = db.Column(db.Time, nullable=True)
-    next_review = db.Column(db.Time, nullable=True)
+    last_review = db.Column(db.Date, nullable=True)
+    next_review = db.Column(db.Date, nullable=True)
     review_count = db.Column(db.Integer, nullable=False)
     ease_factor = db.Column(db.Float, nullable=False)
 

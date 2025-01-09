@@ -13,7 +13,8 @@ def create_app():
     with app.app_context():
         from app.routes import init_routes
         init_routes(app)  # Initialize all routes
-
+        from app.models.user import UserLibraryProgress
+        from app.models.word import Word
         db.create_all()  # Create database tables
 
     return app
