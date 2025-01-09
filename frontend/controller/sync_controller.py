@@ -4,7 +4,7 @@ def sync_up_down(uid: int, pwd: str):
     """
     一次性先把本地进度上传到后端，再从后端下载最新进度合并到本地。
     """
-    print(f"[DEBUG] sync_controller: uid {uid} pwd {pwd}")
+    # print(f"[DEBUG] sync_controller: uid {uid} pwd {pwd}")
     try:
         print("[SYNC] Start upload...")
         sync_service.sync_upload(uid, pwd)
