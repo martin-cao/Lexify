@@ -1,12 +1,5 @@
-import sys
-import time
-
-from PySide6.QtCore import Qt, QDate, QFile
 from PySide6.QtWidgets import QApplication, QMainWindow
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtGui import QPalette
 
-from config import Config
 from database.database import DatabaseConnection
 
 from view.MainWindow import Ui_MainWindow

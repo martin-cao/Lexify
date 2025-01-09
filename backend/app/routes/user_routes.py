@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template, request, jsonify
+from flask import Blueprint, request, jsonify
 
 import app.services.auth_service as service
 import app.models.user as user

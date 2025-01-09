@@ -1,9 +1,10 @@
 import requests
 
-from config import Config
+from controller.config_controller import load_config
 
 def register(username: str, password: str):
-    url = f"{Config.SERVER_URL}/register"
+    conf = load_config()
+    url = f"{conf['SERVER_URL']}/register"
     payload = {
         "username": username,
         "password": password
@@ -17,7 +18,8 @@ def register(username: str, password: str):
         return {"success": False, "message": str(e)}
 
 def login(username: str, password: str):
-    url = f"{Config.SERVER_URL}/login"
+    conf = load_config()
+    url = f"{conf['SERVER_URL']}/login"
     payload = {
         "username": username,
         "password": password
@@ -34,7 +36,8 @@ def logout(username):
     return {"success": True, "message": ""}
 
 def edit_user(username, old_password, new_password: str):
-    url = f"{Config.SERVER_URL}/edit"
+    conf = load_config()
+    url = f"{conf['SERVER_URL']}/edit"
     payload = {
         "username": username,
         "password": old_password,

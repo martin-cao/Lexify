@@ -1,24 +1,12 @@
-import time
-
 from PySide6.QtWidgets import QWidget, QStackedWidget, QMainWindow, QLabel, QPushButton, QComboBox, QGridLayout, QGraphicsBlurEffect
 from PySide6.QtCore import QTimer
 import random
 
-from view.MainWindow import Ui_MainWindow
-from view.login import Ui_Form as Ui_Login
-from view.signup import Ui_Form as Ui_Signup
-from view.main import Ui_Form as Ui_main
-from view.memorize import Ui_Form as Ui_Memorize
-
 from viewmodel.message import show_popup_message
-
-from model.word import Word
 
 from database.database import DatabaseConnection
 
 from controller.learning_controller import start_learning, start_reviewing
-
-from controller.config_controller import load_config
 
 class MemorizeViewModel:
     def __init__(self, view: QWidget, main_window: QMainWindow, is_review: bool = False):
@@ -40,7 +28,7 @@ class MemorizeViewModel:
         self.comboBox_lib = view.findChild(QComboBox, "comboBox_lib")
 
         # Connect buttons with slot functions
-        self.button_back.clicked.connect(self.exit_memorize_view)
+        # self.button_back.clicked.connect(self.exit_memorize_view)
         # 4+1 options' connections
         self.button_option_1.clicked.connect(lambda: self.on_option_clicked(0))
         self.button_option_2.clicked.connect(lambda: self.on_option_clicked(1))
@@ -80,16 +68,16 @@ class MemorizeViewModel:
         # Index of the right answer
         self.right_index = 0
 
-    def exit_memorize_view(self):
-        confirm = show_popup_message(
-            message="确定退出吗？这会丢失本次背词进度",
-            title="你确定吗",
-            msg_type="question"
-        )
-        if confirm:
-            self.stackedWidget.setCurrentIndex(2)
-        else:
-            pass
+    # def exit_memorize_view(self):
+    #     confirm = show_popup_message(
+    #         message="确定退出吗？这会丢失本次背词进度",
+    #         title="你确定吗",
+    #         msg_type="question"
+    #     )
+    #     if confirm:
+    #         self.stackedWidget.setCurrentIndex(2)
+    #     else:
+    #         pass
 
     def load_memorize_data(self, word_list: list):
         """

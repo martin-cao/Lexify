@@ -1,5 +1,3 @@
-from flask import Blueprint
-
 def init_routes(app):
     from .example_routes import example_bp
 
