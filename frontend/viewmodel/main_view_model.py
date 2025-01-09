@@ -19,7 +19,7 @@ from viewmodel.message import show_popup_message
 
 from controller.config_controller import load_config, save_config
 from controller.sync_controller import sync_up_down
-from controller.auth_controller import edit_user
+from controller.auth_controller import edit_user, logout
 
 from util.lexicon import get_today_study_count, get_total_study_count, get_library_study_count, get_library_total_word_count
 
@@ -72,6 +72,9 @@ class MainViewModel:
 
         self.button_exit = self.memorize_view.findChild(QPushButton, "pushButton_memorize_back")
 
+        self.checkBox_login_devmode = self.login_view.findChild(QCheckBox, "checkBox_login_devmode")
+        self.lineEdit_login_server_url = self.login_view.findChild(QLineEdit, "lineEdit_login_server_url")
+
         # 找到 comboBox_lib
         self.comboBox_lib = self.main_view.findChild(QComboBox, "comboBox_lib")
         # 加载所有库到下拉框
@@ -99,6 +102,7 @@ class MainViewModel:
         self.button_changePwd = self.main_view.findChild(QPushButton, "pushButton_settings_changePwd")
         self.checkBox_settings_devmode = self.main_view.findChild(QCheckBox, "checkBox_settings_devmode")
         self.lineEdit_settings_server_url = self.main_view.findChild(QLineEdit, "lineEdit_settings_server_url")
+        self.button_logout = self.main_view.findChild(QPushButton, "pushButton_logout")
 
         # 将视图添加到预定义的页面中
         self.gridLayout_login.addWidget(self.login_view)
@@ -116,15 +120,24 @@ class MainViewModel:
         self.main_ui.pushButton_main_revise.clicked.connect(self.show_revise_view)
         self.main_ui.pushButton_main_sync.clicked.connect(self.on_sync_pressed)
 
-        self.main_ui.checkBox_settings_devmode.stateChanged.connect(self.toggle_dev_mode)
         self.main_ui.pushButton_settings_changePwd.clicked.connect(self.change_password)
+        self.main_ui.checkBox_settings_devmode.stateChanged.connect(self.toggle_dev_mode)
         self.lineEdit_settings_server_url.returnPressed.connect(self.update_server_url)
+
+        self.button_logout.clicked.connect(self.do_logout)
+
+        self.checkBox_login_devmode.stateChanged.connect(self.toggle_dev_mode)
+        self.lineEdit_login_server_url.returnPressed.connect(self.update_server_url_during_login)
+
+
 
         # 动态为按钮添加高斯模糊效果
         self.add_blur_effect_to_buttons()
 
-        # 初始化词库界面
-        self.render_lexicon_ui()
+        # # 初始化词库界面
+        # self.render_lexicon_ui()
+        self.main_ui.tabWidget.currentChanged.connect(self.render_lexicon_ui)
+        self.button_sync.clicked.connect(self.render_lexicon_ui)
 
         # 初始化设置界面
         self.load_settings()
@@ -233,6 +246,11 @@ class MainViewModel:
         self.table.resizeColumnsToContents()
 
     def render_progress_bar(self, user_id, library_id):
+        if user_id == -1 or library_id == -1:
+            self.progressBar.setValue(0)
+            self.label_lexicon_learned.setText("learned")
+            self.label_lexicon_all.setText("total")
+
         """渲染 progressBar 的进度"""
         learned_count = get_library_study_count(user_id, library_id)
         total_count = get_library_total_word_count(library_id)
@@ -248,6 +266,14 @@ class MainViewModel:
 
     def render_lexicon_ui(self):
         conf = load_config()
+        if "uid" not in conf:
+            print("[DEBUG] No uid stored.")
+            self.label_lexicon_count_today.setText(f"## Count")
+            self.label_lexicon_count_all.setText(f"## Count")
+            self.label_lexicon_username.setText(f"### username")
+            self.render_progress_bar(-1, -1)
+            return
+
         lib_id = conf["lib_id"]
         uid = conf["uid"]
         username = conf["username"]
@@ -300,6 +326,7 @@ class MainViewModel:
         # self.lineEdit_settings_server_url.readOnly
         save_config(conf)
         self.lineEdit_settings_server_url.setReadOnly(not state)
+        self.lineEdit_login_server_url.setReadOnly(not state)
 
     def update_server_url(self):
         url = self.lineEdit_settings_server_url.text()
@@ -312,25 +339,44 @@ class MainViewModel:
             conf["SERVER_URL"] = url
             save_config(conf)
 
+    def update_server_url_during_login(self):
+        url = self.lineEdit_login_server_url.text()
+        if not url:
+            conf = load_config()
+            conf["SERVER_URL"] = "http://127.0.0.1:5000/api"
+            save_config(conf)
+        else:
+            conf = load_config()
+            conf["SERVER_URL"] = url
+            save_config(conf)
+
     def load_settings(self):
         conf = load_config()
         devmode = conf.get("devmode", False)
-        server_url = conf.get("server_url", "http://127.0.0.1:5000")
+        server_url = conf.get("SERVER_URL", "http://127.0.0.1:5000")
 
         self.label_settings_username.setText(f"Welcome Back, {conf.get('username', 'username')}")
 
 
         # 设置 devmode 的状态
         self.checkBox_settings_devmode.setChecked(devmode)
+        self.checkBox_login_devmode.setChecked(devmode)
 
         # 设置 server_url 的值
         if conf["SERVER_URL"] != "http://127.0.0.1:5000/api":
             self.lineEdit_settings_server_url.setText(server_url)
+            self.lineEdit_login_server_url.setText(server_url)
         else:
             self.lineEdit_settings_server_url.clear()
+            self.lineEdit_login_server_url.clear()
 
         # 如果 devmode 为 False，则设置为只读
         self.lineEdit_settings_server_url.setReadOnly(not devmode)
+        self.lineEdit_login_server_url.setReadOnly(not devmode)
+
+    def do_logout(self):
+        logout()
+        self.stackedWidget.setCurrentIndex(0)
 
     def add_blur_effect_to_buttons(self):
         """为所有按钮添加高斯模糊效果"""

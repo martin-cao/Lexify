@@ -1,7 +1,4 @@
 {
-    "username": "martincao",
-    "password": "44580197e471b056a425f962c52c80eaa6316c4a3d891fea20395ad41df91b91",
-    "uid": 2,
     "lib_id": 28,
     "devmode": false,
     "SERVER_URL": "http://127.0.0.1:5000/api"

@@ -363,7 +363,7 @@ class Ui_Form(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, -149, 759, 676))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, -198, 759, 725))
         self.scrollAreaWidgetContents.setStyleSheet(u"")
         self.gridLayout_5 = QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_5.setObjectName(u"gridLayout_5")
@@ -415,7 +415,7 @@ class Ui_Form(object):
 
         self.verticalSpacer_2 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.gridLayout_5.addItem(self.verticalSpacer_2, 7, 0, 1, 1)
+        self.gridLayout_5.addItem(self.verticalSpacer_2, 10, 0, 1, 1)
 
         self.line_3 = QFrame(self.scrollAreaWidgetContents)
         self.line_3.setObjectName(u"line_3")
@@ -635,6 +635,36 @@ class Ui_Form(object):
 
         self.gridLayout_5.addLayout(self.verticalLayout_2, 2, 0, 1, 1)
 
+        self.horizontalLayout_6 = QHBoxLayout()
+        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
+        self.pushButton_logout = QPushButton(self.scrollAreaWidgetContents)
+        self.pushButton_logout.setObjectName(u"pushButton_logout")
+        self.pushButton_logout.setMinimumSize(QSize(256, 32))
+        self.pushButton_logout.setMaximumSize(QSize(256, 32))
+        self.pushButton_logout.setStyleSheet(u"QPushButton {\n"
+"    background: rgba(98, 0, 238, 0.7); /* \u8bbe\u7f6e\u4e3a 70% \u4e0d\u900f\u660e */\n"
+"    color: #FFFFFF;\n"
+"    padding: 8px 16px;\n"
+"    border: none;\n"
+"    border-radius: 14px;\n"
+"    font-weight: 500;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background: rgba(55, 0, 179, 0.7); /* \u52a0\u6df1\u4e3b\u8272\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"}\n"
+"QPushButton:pressed {\n"
+"    background: rgba(49, 27, 146, 0.7); /* \u66f4\u6df1\u4e00\u5c42\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"}\n"
+"QPushButton:disabled {\n"
+"    background: rgba(189, 189, 189, 0.7); /* \u7981\u7528\u72b6\u6001\uff0c\u4fdd\u6301 70% \u4e0d\u900f\u660e */\n"
+"    color: rgba(224, 224, 224, 0.7);\n"
+"}")
+
+        self.horizontalLayout_6.addWidget(self.pushButton_logout)
+
+
+        self.gridLayout_5.addLayout(self.horizontalLayout_6, 8, 0, 1, 1)
+
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
         self.gridLayout_4.addWidget(self.scrollArea, 0, 0, 1, 1)
@@ -690,6 +720,7 @@ class Ui_Form(object):
         self.label_5.setText(QCoreApplication.translate("Form", u"### \u4fee\u6539\u5bc6\u7801", None))
         self.label_13.setText(QCoreApplication.translate("Form", u"#### \u65b0\u5bc6\u7801", None))
         self.pushButton_settings_changePwd.setText(QCoreApplication.translate("Form", u"\u4fee\u6539\u5bc6\u7801", None))
+        self.pushButton_logout.setText(QCoreApplication.translate("Form", u"\u767b\u51fa", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_settings), QCoreApplication.translate("Form", u"\u8bbe\u7f6e", None))
     # retranslateUi
 

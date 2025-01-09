@@ -1,7 +1,6 @@
 from controller.config_controller import load_config, save_config
 import services.auth_service as AuthService
 
-
 def register(username, password):
     """
     Handle the sign-up process. UI should auto login after sign up succeed. Write data into config.json

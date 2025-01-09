@@ -3,7 +3,6 @@ from hashlib import sha256
 
 import controller.auth_controller as AuthController
 
-
 from viewmodel.message import show_popup_message
 
 
@@ -52,9 +51,10 @@ class LoginViewModel:
             show_popup_message(message=f"登录失败，{msg}", title="登录失败", msg_type="error")
         else:
             show_popup_message(message=msg, title="登录成功", msg_type="info")
-
-        if success:
             self.stackedWidget.setCurrentIndex(2)
+            self.lineEdit_username.clear()
+            self.lineEdit_password.clear()
+            self.login_succees.emit()
 
     def handle_signup(self):
         self.stackedWidget.setCurrentIndex(1)

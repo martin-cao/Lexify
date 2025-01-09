@@ -772,9 +772,9 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-149</y>
+            <y>-198</y>
             <width>759</width>
-            <height>676</height>
+            <height>725</height>
            </rect>
           </property>
           <property name="styleSheet">
@@ -876,7 +876,7 @@
              </item>
             </layout>
            </item>
-           <item row="7" column="0">
+           <item row="10" column="0">
             <spacer name="verticalSpacer_2">
              <property name="orientation">
               <enum>Qt::Orientation::Vertical</enum>
@@ -1304,6 +1304,49 @@ QPushButton:disabled {
                 </widget>
                </item>
               </layout>
+             </item>
+            </layout>
+           </item>
+           <item row="8" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QPushButton" name="pushButton_logout">
+               <property name="minimumSize">
+                <size>
+                 <width>256</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>256</width>
+                 <height>32</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QPushButton {
+    background: rgba(98, 0, 238, 0.7); /* 设置为 70% 不透明 */
+    color: #FFFFFF;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 14px;
+    font-weight: 500;
+}
+QPushButton:hover {
+    background: rgba(55, 0, 179, 0.7); /* 加深主色，保持 70% 不透明 */
+}
+QPushButton:pressed {
+    background: rgba(49, 27, 146, 0.7); /* 更深一层，保持 70% 不透明 */
+}
+QPushButton:disabled {
+    background: rgba(189, 189, 189, 0.7); /* 禁用状态，保持 70% 不透明 */
+    color: rgba(224, 224, 224, 0.7);
+}</string>
+               </property>
+               <property name="text">
+                <string>登出</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>

@@ -383,6 +383,7 @@ class MemorizeViewModel:
         show_popup_message("恭喜你完成了本轮背诵!", "提示", "info")
         # 返回主界面
         self.stackedWidget.setCurrentIndex(2)
+        self.learning_complete.emit()
 
     def learn_pressed(self):
         from controller.config_controller import load_config

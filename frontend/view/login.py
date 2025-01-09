@@ -15,9 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QLabel,
-    QLayout, QLineEdit, QPushButton, QSizePolicy,
-    QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QHBoxLayout,
+    QLabel, QLayout, QLineEdit, QPushButton,
+    QSizePolicy, QVBoxLayout, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -129,6 +129,26 @@ class Ui_Form(object):
 
         self.verticalLayout.addLayout(self.horizontalLayout_3)
 
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setSpacing(20)
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.horizontalLayout_4.setSizeConstraint(QLayout.SizeConstraint.SetDefaultConstraint)
+        self.horizontalLayout_4.setContentsMargins(80, -1, 80, -1)
+        self.checkBox_login_devmode = QCheckBox(Form)
+        self.checkBox_login_devmode.setObjectName(u"checkBox_login_devmode")
+
+        self.horizontalLayout_4.addWidget(self.checkBox_login_devmode)
+
+        self.lineEdit_login_server_url = QLineEdit(Form)
+        self.lineEdit_login_server_url.setObjectName(u"lineEdit_login_server_url")
+        self.lineEdit_login_server_url.setMaximumSize(QSize(200, 16777215))
+        self.lineEdit_login_server_url.setEchoMode(QLineEdit.EchoMode.Normal)
+
+        self.horizontalLayout_4.addWidget(self.lineEdit_login_server_url)
+
+
+        self.verticalLayout.addLayout(self.horizontalLayout_4)
+
 
         self.gridLayout_2.addLayout(self.verticalLayout, 0, 0, 1, 1)
 
@@ -146,5 +166,6 @@ class Ui_Form(object):
         self.pushButton_login_login.setText(QCoreApplication.translate("Form", u"\u767b\u5f55", None))
         self.label_3.setText(QCoreApplication.translate("Form", u"\u65b0\u7528\u6237\uff1f", None))
         self.pushButton_login_signup.setText(QCoreApplication.translate("Form", u"\u6ce8\u518c", None))
+        self.checkBox_login_devmode.setText(QCoreApplication.translate("Form", u"\u81ea\u5b9a\u4e49\u670d\u52a1\u5668", None))
     # retranslateUi
 

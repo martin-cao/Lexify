@@ -223,6 +223,42 @@
        </item>
       </layout>
      </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="spacing">
+        <number>20</number>
+       </property>
+       <property name="sizeConstraint">
+        <enum>QLayout::SizeConstraint::SetDefaultConstraint</enum>
+       </property>
+       <property name="leftMargin">
+        <number>80</number>
+       </property>
+       <property name="rightMargin">
+        <number>80</number>
+       </property>
+       <item>
+        <widget class="QCheckBox" name="checkBox_login_devmode">
+         <property name="text">
+          <string>自定义服务器</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="lineEdit_login_server_url">
+         <property name="maximumSize">
+          <size>
+           <width>200</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="echoMode">
+          <enum>QLineEdit::EchoMode::Normal</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
     </layout>
    </item>
   </layout>
