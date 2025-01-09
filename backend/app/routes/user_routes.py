@@ -6,7 +6,7 @@ import app.models.user as user
 
 user_bp = Blueprint('user', __name__)
 
-@user_bp.route('/register', methods=['POST'])
+@user_bp.route('/api/register', methods=['POST'])
 def register():
     try:
         # Parse request body
@@ -30,7 +30,7 @@ def register():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@user_bp.route('/login', methods=['POST'])
+@user_bp.route('/api/login', methods=['POST'])
 def login():
     try:
         # Parse request body
@@ -54,12 +54,12 @@ def login():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e), 'uid': None}), 500
 
-@user_bp.route('/logout', methods=['POST'])
+@user_bp.route('/api/logout', methods=['POST'])
 def logout():
     # 注销逻辑
     return 200
 
-@user_bp.route('/edit', methods=['POST'])
+@user_bp.route('/api/edit', methods=['POST'])
 def edit_user():
     try:
         # Parse request body and headers

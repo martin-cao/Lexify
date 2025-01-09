@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from PySide6.QtWidgets import QWidget, QStackedWidget, QMainWindow, QGridLayout, QGraphicsBlurEffect, QComboBox
+from PySide6.QtWidgets import QWidget, QStackedWidget, QMainWindow, QGridLayout, QGraphicsBlurEffect, QComboBox, \
+    QPointList, QPushButton
 from sqlalchemy.sql.functions import current_date
 
 from view.MainWindow import Ui_MainWindow
@@ -16,6 +17,7 @@ from database.database import DatabaseConnection
 from viewmodel.message import show_popup_message
 
 from controller.config_controller import load_config, save_config
+from controller.sync_controller import sync_up_down
 
 # 如果你已有 model.library, 用它来获取所有库
 # 假设 get_all_libraries() 返回 [Library(id=1, name="四级"), Library(id=2, name="六级"), ...]
@@ -71,6 +73,9 @@ class MainViewModel:
         # 加载所有库到下拉框
         self.load_libraries_to_combo()
 
+        # 找到 pushButton_main_sync
+        self.button_sync = self.main_view.findChild(QPushButton, "pushButton_main_sync")
+
         # 将视图添加到预定义的页面中
         self.gridLayout_login.addWidget(self.login_view)
         self.gridLayout_signup.addWidget(self.signup_view)
@@ -83,6 +88,7 @@ class MainViewModel:
         # Connect buttons with slot functions
         self.main_ui.pushButton_main_learn.clicked.connect(self.show_learning_view)
         self.main_ui.pushButton_main_revise.clicked.connect(self.show_revise_view)
+        self.main_ui.pushButton_main_sync.clicked.connect(self.on_sync_pressed)
 
         # 动态为按钮添加高斯模糊效果
         self.add_blur_effect_to_buttons()
@@ -147,6 +153,13 @@ class MainViewModel:
         conf["lib_id"] = lib_id
         save_config(conf)
         print(f"[INFO] Updated config's lib_id to {lib_id}.")
+
+    def on_sync_pressed(self):
+        conf = load_config()
+        uid = conf["uid"]
+        pwd = conf["password"]
+        sync_up_down(uid, pwd)
+
 
     def add_blur_effect_to_buttons(self):
         """为所有按钮添加高斯模糊效果"""

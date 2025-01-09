@@ -6,4 +6,4 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # SECRET_KEY = 'your_secret_key'
     CONFIG_PATH =  f'{os.path.join(basedir, "util", "config.json")}'
-    SERVER_URL = "http://127.0.0.1:5000"
+    SERVER_URL = "http://127.0.0.1:5000/api"
