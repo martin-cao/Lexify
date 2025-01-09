@@ -4,7 +4,8 @@ from sqlalchemy import Column, Integer, String, Text, ForeignKey
 from database.database import DatabaseConnection
 from model.base import Base
 
-session = DatabaseConnection.get_session()
+db_conn = DatabaseConnection()
+session = db_conn.get_session()
 
 class Library(Base):
     # Model for the library table
@@ -57,3 +58,6 @@ def add_word_to_library(library_id, word_id):
     session.add(library_word)
     session.commit()
     return library_word
+
+def get_all_libraries():
+    return session.query(Library).all()

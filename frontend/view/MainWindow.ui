@@ -92,12 +92,12 @@ QLineEdit:focus, QComboBox:focus {
 }
 
 /* 下拉列表的弹出菜单 */
-QComboBox QAbstractItemView {
-    background: #FFFFFF;
-    border: 1px solid #E0E0E0;
-    selection-background-color: #6200EE;
-    selection-color: #FFFFFF;
-}
+<!--QComboBox QAbstractItemView {-->
+<!--    background: #FFFFFF;-->
+<!--    border: 1px solid #E0E0E0;-->
+<!--    selection-background-color: #6200EE;-->
+<!--    selection-color: #FFFFFF;-->
+<!--}-->
 
 /* 工具栏和菜单栏 */
 QToolBar {

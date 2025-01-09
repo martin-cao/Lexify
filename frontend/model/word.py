@@ -3,7 +3,8 @@ from sqlalchemy import Column, Integer, String, Text
 from database.database import DatabaseConnection
 from .base import Base
 
-session = DatabaseConnection.get_session()
+db_conn = DatabaseConnection()
+session = db_conn.get_session()
 
 class Word(Base):
     # Model for the Words table
@@ -26,6 +27,9 @@ def create_word(word, part_of_speech, definition, example=None):
 
 def get_word_by_id(word_id):
     return session.query(Word).get(word_id)
+
+def get_word_by_word(word):
+    return session.query(Word).filter_by(word=word).first()
 
 def delete_word(word_id):
     word_entry = session.query(Word).get(word_id)

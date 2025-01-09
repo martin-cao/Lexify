@@ -319,12 +319,12 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.label)
 
-        self.comboBox = QComboBox(self.tab_lexicons)
-        self.comboBox.setObjectName(u"comboBox")
-        self.comboBox.setMinimumSize(QSize(256, 48))
-        self.comboBox.setMaximumSize(QSize(16777215, 48))
+        self.comboBox_lib = QComboBox(self.tab_lexicons)
+        self.comboBox_lib.setObjectName(u"comboBox_lib")
+        self.comboBox_lib.setMinimumSize(QSize(256, 48))
+        self.comboBox_lib.setMaximumSize(QSize(16777215, 48))
 
-        self.verticalLayout.addWidget(self.comboBox)
+        self.verticalLayout.addWidget(self.comboBox_lib)
 
 
         self.verticalLayout_6.addLayout(self.verticalLayout)
