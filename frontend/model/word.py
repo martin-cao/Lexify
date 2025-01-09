@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text
 
+from model.library import LibraryWord
+
 from database.database import DatabaseConnection
 from .base import Base
 
@@ -37,3 +39,12 @@ def delete_word(word_id):
         session.delete(word_entry)
         session.commit()
     return word_entry
+
+def get_words_by_library(library_id):
+    return (
+        session.query(Word)
+        .join(LibraryWord, Word.id == LibraryWord.word_id)
+        .filter(LibraryWord.library_id == library_id)
+        # .options(joinedload(Word))
+        .all()
+    )

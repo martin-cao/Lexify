@@ -1,6 +1,3 @@
-import json
-import os
-
 from controller.config_controller import load_config, save_config
 import services.auth_service as AuthService
 

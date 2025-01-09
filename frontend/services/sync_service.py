@@ -1,17 +1,18 @@
 import requests
-from datetime import date, datetime
+from datetime import datetime
 
+from controller.config_controller import load_config
 from model.user import LearningProgress
 
 from database.database import DatabaseConnection
-from config import Config
 
 db_conn = DatabaseConnection()
 session = db_conn.get_session()
 
 # 这个URL视情况而定，你可以放在 config 中
 
-SYNC_URL = f"{Config.SERVER_URL}/sync"
+conf = load_config()
+SYNC_URL = f"{conf['SERVER_URL']}/sync"
 
 def gather_local_progresses_to_sync(uid: int):
     """

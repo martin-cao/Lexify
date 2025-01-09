@@ -2,9 +2,7 @@ from PySide6.QtWidgets import QWidget, QLineEdit, QPushButton, QLabel, QMessageB
 from hashlib import sha256
 
 import controller.auth_controller as AuthController
-from view.MainWindow import Ui_MainWindow
-from view.login import Ui_Form as Ui_Login
-from view.signup import Ui_Form as Ui_Signup
+
 
 from viewmodel.message import show_popup_message
 

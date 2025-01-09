@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, Time, Float, Date
-from sqlalchemy.sql import func
+import hashlib
 
 from database.database import DatabaseConnection
 from .base import Base
@@ -57,3 +57,6 @@ def delete_learning_progress(progress_id):
     session.delete(progress)
     session.commit()
     return progress
+
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()

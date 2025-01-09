@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from app.models.user import UserLibraryProgress
 from app import db
 from sqlalchemy import and_

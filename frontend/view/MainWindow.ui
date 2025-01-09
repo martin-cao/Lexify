@@ -17,10 +17,7 @@
    <string notr="true">/* 全局基础设置 */
 
 QMainWindow {
-    background-image: url(:/pics/assets/background.jpg);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
+    border-image: url(:/pics/assets/background.jpg) 0 0 0 0 stretch stretch;
 }
 
 QWidget {
@@ -83,21 +80,16 @@ QLineEdit, QComboBox {
     border: none;
     border-bottom: 2px solid #9E9E9E;
     padding: 4px;
-    selection-background-color: #6200EE;
-    selection-color: #FFFFFF;
-    color: #FFFFFF;
+    selection-background-color:rgba(203, 168, 255, 0.75);
+    selection-color:rgb(0, 0, 0);
+    color: #000000;
 }
 QLineEdit:focus, QComboBox:focus {
     border-bottom: 2px solid #6200EE;
 }
 
 /* 下拉列表的弹出菜单 */
-<!--QComboBox QAbstractItemView {-->
-<!--    background: #FFFFFF;-->
-<!--    border: 1px solid #E0E0E0;-->
-<!--    selection-background-color: #6200EE;-->
-<!--    selection-color: #FFFFFF;-->
-<!--}-->
+
 
 /* 工具栏和菜单栏 */
 QToolBar {
@@ -138,7 +130,7 @@ QTabBar::tab {
     padding: 8px 16px;
     margin: 0 4px;
     border-bottom: 2px solid transparent;
-    color: #FFFFFF;
+    color: #000000;
 }
 QTabBar::tab:selected {
     border-bottom: 2px solid #6200EE;
@@ -190,7 +182,7 @@ QScrollBar::sub-line:horizontal, QScrollBar::add-line:horizontal {
 
 /* 标签文本 */
 QLabel {
-    color: #FFFFFF;
+    color: #000000;
 }
 
 /* 提示框（ToolTip） */
@@ -263,7 +255,7 @@ QProgressBar::chunk {
        </layout>
       </widget>
       <widget class="QWidget" name="memorize">
-         <layout class="QGridLayout" name="gridLayout_5">
+       <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
          <layout class="QGridLayout" name="gridLayout_memorize"/>
         </item>
