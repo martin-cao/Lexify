@@ -12,9 +12,11 @@ from view.memorize import Ui_Form as Ui_Memorize
 
 from viewmodel.message import show_popup_message
 
+from model.word import Word
+
 from database.database import DatabaseConnection
 
-from controller.learning_controller import learn_new_words, start_reviewing_words, review_words
+from controller.learning_controller import start_learning, start_reviewing
 
 from controller.config_controller import load_config
 
@@ -97,11 +99,13 @@ class MemorizeViewModel:
              {"progress_id": 2, "word":"banana","definition":"...", "proficiency":30,"mode":"review"},
              ...
            ]
+
+        fix: word_list 就是单纯的[Word]
         """
         self.memorize_data.clear()
         for item in word_list:
             self.memorize_data.append({
-                "progress_id": item["progress_id"],
+                "progress_id": item["progress_id"], # -1 if newly learn
                 "word": item["word"],
                 "definition": item["definition"],
                 "proficiency": item["proficiency"],
@@ -121,9 +125,16 @@ class MemorizeViewModel:
 
     def show_current_word(self):
         if self.current_index >= len(self.memorize_data):
-            # 说明已经没有单词可显示了 => 本轮结束
-            self.finish_memorize_session()
-            return
+            all_done = True
+            for progress in self.memorize_data:
+                if progress["done"] == False:
+                    all_done = False
+            if all_done:
+                # 说明已经没有单词可显示了 => 本轮结束
+                self.finish_memorize_session()
+                return
+            else:
+                self.current_index = 0
 
         current_item = self.memorize_data[self.current_index]
         # 如果已 done，则跳到下一个
@@ -343,7 +354,7 @@ class MemorizeViewModel:
             self.stackedWidget.setCurrentIndex(2)
             return
 
-        new_proficiencies = {}
+        new_proficiencies = []
         for item in self.memorize_data:
             p_id = item["progress_id"]
             old_pf = item["proficiency"]
@@ -370,11 +381,15 @@ class MemorizeViewModel:
             if new_pf > 100:
                 new_pf = 100
 
-            new_proficiencies[p_id] = new_pf
+            new_proficiencies.append({item["word"]: new_pf})
+
+        from controller.config_controller import load_config
+        conf = load_config()
+        uid = int(conf["uid"])
 
         # 调用后端 finish_review，统一更新数据库
-        from controller.learning_controller import review_words
-        review_words(progress_ids=list(new_proficiencies.keys()), new_proficiencies=new_proficiencies)
+        from controller.learning_controller import finish_learning
+        finish_learning(progresses=self.memorize_data, new_proficiencies=new_proficiencies, uid=uid)
 
         # 弹窗提示
         show_popup_message("恭喜你完成了本轮背诵!", "提示", "info")
@@ -390,7 +405,7 @@ class MemorizeViewModel:
             return
         library_id = conf["lib_id"]
 
-        new_list = learn_new_words(uid=uid, library_id=library_id, limit=20)
+        new_list = start_learning(uid=uid, library_id=library_id, limit=20)
         if not new_list:
             # learn_new_words里已有弹窗提示"没有新单词可以背了"
             return
@@ -408,7 +423,7 @@ class MemorizeViewModel:
             return
         library_id = conf["lib_id"]
 
-        new_list = start_reviewing_words(uid=uid, library_id=library_id, limit=20)
+        new_list = start_reviewing(uid=uid, library_id=library_id, limit=20)
         if not new_list:
             # learn_new_words里已有弹窗提示"没有新单词可以背了"
             return

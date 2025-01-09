@@ -13,7 +13,6 @@ db_conn = DatabaseConnection()
 session = db_conn.get_session()
 
 
-
 def get_next_review_date(review_count: int, proficiency: int) -> date:
     '''
     Return the next review date according to current review count and proficiency.
@@ -64,75 +63,231 @@ def fetch_new_words_from_user(uid: int, library_id: int, limit: int = 20):
     words = words_query.all()
     return words
 
-def start_learning_new_words(uid: int, words):
-    '''
-    Put these words into the table "learning_progress", then set
-        proficiency = 0
-        last_review = today
-        next_review = get_next_review_date()
-        review_count = 1
-
-    :param uid:
-    :param words:
-    :return:
-    '''
-
+def fetch_new_word_progress_dict(words):
     today = date.today()
 
+    progresses = []
     for w in words:
-        progress = LearningProgress(
-            user_id=uid,
-            word_id=w.id,
-            proficiency=0,
-            last_review=today,
-            next_review=get_next_review_date(1, 0), # review_count=1, proficiency=0
-            review_count=1
-        )
+        progresses.append({
+            "progress_id": -1, # 临时量
+            "word": w.word,
+            "word_id": w.id,
+            "definition": w.definition,
+            "proficiency": 0,
+            "mode": "new"
+        })
 
-        session.add(progress)
+    return progresses
+
+def start_learning(uid: int, library_id: int, limit: int = 20):
+    words = fetch_new_words_from_user(uid, library_id, limit)
+    progresses = fetch_new_word_progress_dict(words)
+    return progresses
+
+# def start_learning_new_words(uid: int, words):
+#     '''
+#     Put these words into the table "learning_progress", then set
+#         proficiency = 0
+#         last_review = today
+#         next_review = get_next_review_date()
+#         review_count = 1
+#
+#     :param uid:
+#     :param words:
+#     :return:
+#     '''
+#
+#     today = date.today()
+#
+#     for w in words:
+#         progress = LearningProgress(
+#             user_id=uid,
+#             word_id=w.id,
+#             proficiency=0,
+#             last_review=today,
+#             next_review=get_next_review_date(1, 0), # review_count=1, proficiency=0
+#             review_count=1
+#         )
+#
+#         session.add(progress)
+#     session.commit()
+#
+# def learn_new_words(uid: int, library_id: int, limit: int = 20):
+#     '''
+#     Called after pressed "新学", find maximally "limit" words for the user, then make records in the table "learning_progress".
+#     :param uid:
+#     :param limit:
+#     :return new_words:
+#     '''
+#     today = date.today()
+#
+#     new_words = fetch_new_words_from_user(uid, library_id=library_id, limit=limit)
+#     print(f"[DEBUG] learn_new_words -> new_words \n{new_words}")
+#     if not new_words:
+#         print("[WARNING] No new words to learn.")
+#         # 呼出弹窗
+#         show_popup_message(message="没有新单词可以背了", title="", msg_type="info")
+#         return []
+#
+#     return new_words
+#
+#     # start_learning_new_words(uid, new_words)
+#     #
+#     # # Find the progresses just created
+#     # progresses = (
+#     #     session.query(LearningProgress)
+#     #     .filter(LearningProgress.user_id == uid)
+#     #     .order_by(LearningProgress.id.desc())
+#     #     .limit(len(new_words))
+#     #     .all()
+#     # )
+#     #
+#     # result = []
+#     # for p in progresses:
+#     #     w = session.query(Word).get(p.word_id)
+#     #     if w:
+#     #         result.append({
+#     #             "progress_id": p.id,
+#     #             "word": w.word,
+#     #             "definition": w.definition,
+#     #             "proficiency": p.proficiency,
+#     #             "mode": "new"
+#     #         })
+#     #
+#     # print(f"[DEBUG] Successfully add {len(new_words)} words into learning_progress.")
+#     # return result
+#
+# def confirm_learning_new_words(uid: int, words):
+#
+#     if not words:
+#         print("[WARNING] confirm_learning_new_words called with empty words.")
+#         return []
+#
+#     # Write in to the database
+#     start_learning_new_words(uid, words)
+#
+#     # Find the progresses just created
+#     progresses = (
+#         session.query(LearningProgress)
+#         .filter(LearningProgress.user_id == uid)
+#         .order_by(LearningProgress.id.desc())
+#         .limit(len(words))
+#         .all()
+#     )
+#
+#     result = []
+#     for p in progresses:
+#         w = session.query(Word).get(p.word_id)
+#         if w:
+#             result.append({
+#                 "progress_id": p.id,
+#                 "word": w.word,
+#                 "definition": w.definition,
+#                 "proficiency": p.proficiency,
+#                 "mode": "new"
+#             })
+#
+#     print(f"[DEBUG] Successfully add {len(result)} words into learning_progress.")
+#     return result
+
+def find_pf_for_word(word: str, new_proficiencies: list) -> int:
+    """
+    在形如 [ {'hello':95}, {'apple':60}, ... ] 的列表中，
+    找到 key=word 对应的熟练度值。如果找不到，默认返回 0。
+    """
+    for d in new_proficiencies:
+        if word in d:
+            return d[word]
+    return 0
+
+
+def finish_learning(progresses: list[dict], new_proficiencies: list[dict], uid: int):
+    """
+    :param progresses: memorize_view_model.finish_memorize_session() 里传来的单词数据
+                       形如: [
+                         {
+                           "progress_id": -1 or 123,
+                           "word": "apple",
+                           "definition": "...",
+                           "proficiency": 0,
+                           "mode": "new"/"review",
+                           "n": ...,
+                           "done": True/False,
+                           ...
+                         },
+                         ...
+                       ]
+    :param new_proficiencies: 一个list[dict]，形如 [ {'apple': 80}, {'hello':90}, ... ]
+                             表示每个单词最后算出来的新熟练度
+    :param uid: 当前用户ID
+    :return: None
+    """
+
+    today = date.today()
+    records_to_add = []
+
+    for p in progresses:
+        # 找到对该单词计算出的最终熟练度
+        final_pf = find_pf_for_word(p["word"], new_proficiencies)
+
+        if p["progress_id"] == -1:
+            # ============ 情况1：新学单词，数据库里还没记录，要新建 ============
+            from model.word import get_word_by_word
+            word_id = get_word_by_word(p["word"]).id
+            if not word_id:
+                # 万一没查到id，则跳过或做别的处理
+                continue
+
+            record = LearningProgress(
+                user_id=uid,
+                word_id=word_id,
+                proficiency=final_pf,
+                last_review=today,
+                next_review=get_next_review_date(review_count=1, proficiency=final_pf),
+                review_count=1
+            )
+            records_to_add.append(record)
+
+        else:
+            # ============ 情况2：已有进度(复习)，更新对应progress记录 ============
+            existing_progress = (
+                session.query(LearningProgress)
+                .filter(LearningProgress.id == p["progress_id"])
+                .first()
+            )
+            if not existing_progress:
+                # 如果没查到，对应记录可能被删掉/出错，可根据需要决定报错或忽略
+                continue
+
+            existing_progress.last_review = today
+            existing_progress.proficiency = final_pf
+            existing_progress.review_count += 1
+            existing_progress.next_review = get_next_review_date(
+                existing_progress.review_count,
+                final_pf
+            )
+            # 也可根据需要更新 status、或其他字段
+
+    # 统一把新建的记录插入数据库
+    if records_to_add:
+        session.add_all(records_to_add)
+
+    # 提交更新/新建
     session.commit()
 
-def learn_new_words(uid: int, library_id: int, limit: int = 20):
-    '''
-    Called after pressed "新学", find maximally "limit" words for the user, then make records in the table "learning_progress".
-    :param uid:
-    :param limit:
-    :return new_words:
-    '''
+    print(f"[DEBUG] finish_learning() -> Added {len(records_to_add)} new records, "
+          f"updated {len(progresses) - len(records_to_add)} existing ones.")
 
-    new_words = fetch_new_words_from_user(uid, library_id=library_id, limit=limit)
-    print(f"[DEBUG] learn_new_words -> new_words \n{new_words}")
-    if not new_words:
-        print("[WARNING] No new words to learn.")
-        # 呼出弹窗
-        show_popup_message(message="没有新单词可以背了", title="", msg_type="info")
-        return []
 
-    start_learning_new_words(uid, new_words)
-
-    # Find the progresses just created
-    progresses = (
-        session.query(LearningProgress)
-        .filter(LearningProgress.user_id == uid)
-        .order_by(LearningProgress.id.desc())
-        .limit(len(new_words))
-        .all()
-    )
-
-    result = []
-    for p in progresses:
-        w = session.query(Word).get(p.word_id)
-        if w:
-            result.append({
-                "progress_id": p.id,
-                "word": w.word,
-                "definition": w.definition,
-                "proficiency": p.proficiency,
-                "mode": "new"
-            })
-
-    print(f"[DEBUG] Successfully add {len(new_words)} words into learning_progress.")
-    return result
+#         p.last_review = today
+#         # if not in new_proficiencies, use old proficiency
+#         new_pf = new_proficiencies.get(p.id, p.proficiency)
+#         p.proficiency = new_pf
+#         p.review_count += 1
+#         p.next_review = get_next_review_date(p.review_count, new_pf)
+#
+#     session.commit()
+#     print(f"[DEBUG] Updated {len(progresses)} records in review_words().")
 
 def fetch_words_to_review(uid: int, library_id: int, limit: int = 20):
     '''
@@ -165,7 +320,7 @@ def fetch_words_to_review(uid: int, library_id: int, limit: int = 20):
     return progress_list
 
 
-def start_reviewing_words(uid: int, library_id: int, limit: int = 20):
+def start_reviewing(uid: int, library_id: int, limit: int = 20):
     '''
     1) Fetch up to `limit` words from this library that are due for review.
     2) Return a list of dict for front-end usage:
@@ -201,31 +356,31 @@ def start_reviewing_words(uid: int, library_id: int, limit: int = 20):
     return result
 
 
-def review_words(progress_ids: list, new_proficiencies: dict):
-    '''
-    Final step: UPDATE the progress records with new proficiency & typical fields:
-      - last_review = today
-      - review_count += 1
-      - next_review = get_next_review_date(review_count, new_pf)
-
-    :param progress_ids: list of progress IDs
-    :param new_proficiencies: dict { progress_id: new_proficiency }
-    '''
-    today = date.today()
-
-    progresses = (
-        session.query(LearningProgress)
-        .filter(LearningProgress.id.in_(progress_ids))
-        .all()
-    )
-
-    for p in progresses:
-        p.last_review = today
-        # if not in new_proficiencies, use old proficiency
-        new_pf = new_proficiencies.get(p.id, p.proficiency)
-        p.proficiency = new_pf
-        p.review_count += 1
-        p.next_review = get_next_review_date(p.review_count, new_pf)
-
-    session.commit()
-    print(f"[DEBUG] Updated {len(progresses)} records in review_words().")
+# def review_words(progress_ids: list, new_proficiencies: dict):
+#     '''
+#     Final step: UPDATE the progress records with new proficiency & typical fields:
+#       - last_review = today
+#       - review_count += 1
+#       - next_review = get_next_review_date(review_count, new_pf)
+#
+#     :param progress_ids: list of progress IDs
+#     :param new_proficiencies: dict { progress_id: new_proficiency }
+#     '''
+#     today = date.today()
+#
+#     progresses = (
+#         session.query(LearningProgress)
+#         .filter(LearningProgress.id.in_(progress_ids))
+#         .all()
+#     )
+#
+#     for p in progresses:
+#         p.last_review = today
+#         # if not in new_proficiencies, use old proficiency
+#         new_pf = new_proficiencies.get(p.id, p.proficiency)
+#         p.proficiency = new_pf
+#         p.review_count += 1
+#         p.next_review = get_next_review_date(p.review_count, new_pf)
+#
+#     session.commit()
+#     print(f"[DEBUG] Updated {len(progresses)} records in review_words().")
