@@ -89,7 +89,7 @@ DELETE FROM words WHERE definition = ''
 ---
 
 ## Open Source Attribution
-The dictionary data user in this project comes from [DictionaryData](https://github.com/LinXueyuanStdio/DictionaryData), which is licensed under the Apache-2.0 Licence. Special thanks to the authors for making this data publicly available.
+The dictionary data used in this project comes from [DictionaryData](https://github.com/LinXueyuanStdio/DictionaryData), which is licensed under the Apache-2.0 Licence. Special thanks to the authors for making this data publicly available.
 
 > [!WARNING]
 > As this is a course design project, please DO NOT make any pull request. If you have any suggestion with this project, please create an issue.
