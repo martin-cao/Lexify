@@ -28,7 +28,7 @@ Lexify is a desktop application designed to help users learn and manage vocabula
 Follow these steps to set up.
 ### 1. Clone the repository
 ```shell
-git clone https://github.com/your_username/lexify.git
+git clone https://github.com/martin-cao/Lexify.git
 cd lexify
 ```
 
@@ -73,15 +73,15 @@ docker-compose up --build -d
 ### 4. Import Dictionary Data _(Optional)_
 If you want to import the dictionary data by your self, follow the instructions below.
 
-You should remove the word, library and library_word data in the databases by yourself. Remove all elements in the `words`, `libraries` and `library_words` tables in `frontend/database/database_fe.db` and `backend/app/database/database_be.db`. These are two SQLite databases. You could use Navicat or other tools to remove the data.
+Remove all elements in the `words`, `libraries` and `library_words` tables in `frontend/database/database_fe.db` and `backend/app/database/database_be.db`. These are two SQLite databases. You can use Navicat or other tools to remove the data.
 
-Then, clone the [DictionaryData](https://github.com/LinXueyuanStdio/DictionaryData) repository at Lexify/dict, and run `load_data.py`.
+Then, clone the [DictionaryData](https://github.com/LinXueyuanStdio/DictionaryData) repository into Lexify/dict, and run `dict/load_data.py`.
 ```shell
 cd dict
 python3 load_data.py
 ```
 
-At last, you need to run this SQL query in order to remove all words with no definitions.
+At last, you need to run this SQL query in order to remove all words without corresponding definitions.
 ```sql
 DELETE FROM words WHERE definition = ''
 ```
